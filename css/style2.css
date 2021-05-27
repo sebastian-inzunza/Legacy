@@ -56,6 +56,10 @@
 .margin-h2{
     margin-bottom: 10px;
 }
+
+.margin-reproductor{
+    margin: 20px 0px;
+}
 .negritas{
     font-weight: bold;
 }
@@ -352,6 +356,16 @@
  .text_align_center {
      text-align: center;
 }
+/*----------------------------------Table-----------------*/
+.display{
+    display: flex;
+    justify-content: center;
+}
+
+.display p{
+    font-size: 30px;
+    padding: 0px 10px;
+}
 /*--------------------------------------------------------------------- header area ---------------------------------------------------------------------*/
  .logo_section {
      text-align: center;
@@ -612,6 +626,20 @@
      left: 0px;
      top: 0px;
 }
+
+select {
+    display: block !important;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    height: 1px;
+    opacity: 0;
+    position: relative;
+    /* Top should be the same as the height of your */
+    /* unfocused, nice select replacement element! */
+    top: 30px;
+}
+
  .header-search input {
      width: 100%;
      min-height: 45px;

@@ -33,6 +33,7 @@
 <!-- body -->
 
 <body class="main-layout">
+ 
     <!-- loader  -->
     <div class="loader_bg">
         <div class="loader"><img src="img/loading.gif" alt="#" /></div>
@@ -110,18 +111,34 @@
                     <li><a data-toggle="tab" href="#menu3"><img class ="dividir" src="icon/icon1.png" alt="icon"/></a><h3 class="center negritas">HIP-HOP</h3></a></li>
 
                 </ul>
+                
+              
             </div>
-                <div class="tab-content"> <!-- Esto lo sacamos con un while de la base de datos-->
+                <div class="tab-content"> <!-- Esto vamos a sacamr con un while de la base de datos-->
                         <div id="home" class="tab-pane fade in active Scroll">
-                            <h3 class="center margin-h2">Que Nos Paso <audio src="YUNG BAE - Bae - 05 I'm Willing (w-tuuwa).mp3" preload="none" controls></audio></h3>
-                            <h3 class="center margin-h2">Que Nos Paso <audio src="YUNG BAE - Bae - 05 I'm Willing (w-tuuwa).mp3" preload="none" controls></audio></h3>
-                            <h3 class="center margin-h2">Que Nos Paso <audio src="YUNG BAE - Bae - 05 I'm Willing (w-tuuwa).mp3" preload="none" controls></audio></h3>
-                            <h3 class="center margin-h2">Que Nos Paso <audio src="YUNG BAE - Bae - 05 I'm Willing (w-tuuwa).mp3" preload="none" controls></audio></h3>
-                            <h3 class="center margin-h2">Que Nos Paso <audio src="YUNG BAE - Bae - 05 I'm Willing (w-tuuwa).mp3" preload="none" controls></audio></h3>
-                            <h3 class="center margin-h2">Que Nos Paso <audio src="YUNG BAE - Bae - 05 I'm Willing (w-tuuwa).mp3" preload="none" controls></audio></h3>
-                            <h3 class="center margin-h2">Que Nos Paso <audio src="YUNG BAE - Bae - 05 I'm Willing (w-tuuwa).mp3" preload="none" controls></audio></h3>
-                            <h3 class="center margin-h2">Que Nos Paso <audio src="YUNG BAE - Bae - 05 I'm Willing (w-tuuwa).mp3" preload="none" controls></audio></h3>
-                            <h3 class="center margin-h2">Que Nos Paso <audio src="YUNG BAE - Bae - 05 I'm Willing (w-tuuwa).mp3" preload="none" controls></audio></h3>
+                            <table class="display">
+                                <tr>
+                                    <td><p>Artista</p></td>
+                                    <td><p>Cancion</p></td>
+                                    <td class = "center"><p>Reproducir</p></td>
+                                    <td></td>
+                                    <td width = "200px"></td>
+                                </tr>
+                                <tr>
+                                    <td class="center">Yung Bae</td>
+                                    <td class="center">I´m Willing</td>
+                                    <td class="display"><audio class="margin-reproductor"src="YUNG BAE - Bae - 05 I'm Willing (w-tuuwa).mp3" preload="none" controls></audio></td>
+                                    <td><a data-toggle="tab" href="#"><img class ="dividir" src="icon/boton-x.png" alt="icon" width="30px"/></a></td>
+                                    <td>
+                                        <select>
+                                            <option value="">Agregar Playlist</option>
+                                            <option value="1">PlayList 1</option>
+                                            <option value="2">Playlist 2</option>
+                                            <option value="3">Playlist 3</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                         <div id="menu1" class="tab-pane fade">
                             <h3>Menu 1</h3>
@@ -370,7 +387,9 @@
                 $(this).removeClass('transition');
             });
         });
+        
     </script>
+    
 </body>
 
 </html>
