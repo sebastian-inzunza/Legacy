@@ -16,7 +16,7 @@
     <!-- bootstrap css -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- style css -->
-    <link rel="stylesheet" href="css/style2.css">
+    <link rel="stylesheet" href="css/style2.css">   
     <!-- Responsive-->
     <link rel="stylesheet" href="css/responsive.css">
     <!-- fevicon -->
@@ -48,7 +48,7 @@
                         <div class="full">
                             <div class="center-desk">
                                 <div class="logo">
-                                    <a href="index.html"><img src="img/Legacy-Logo.jpg" alt="logo"/></a>
+                                    <a href="index.html"><img src="img/Legacy-Logo.jpg" width="85px" alt="logo"/></a>
                                 </div>
                             </div>
                         </div>
@@ -58,12 +58,10 @@
                             <div class="limit-box">
                                 <nav class="main-menu">
                                     <ul class="menu-area-main">
-                                        <li class="active"> <a href="index.html">Home</a> </li>
-                                        <li> <a href="about.html">about</a> </li>
-                                        <li> <a href="album.html"> Albums</a> </li>
-                                        <li> <a href="blog.html">Blog</a> </li>
-                                        <li> <a href="contact.html">Contact</a> </li>
-                                        <li> <a href="#contact">Login</a> </li>
+                                        <li> <a href="#">Mis Canciones</a> </li>
+                                        <li> <a href="#">Playlist</a> </li>
+                                        <li> <a href="#">Perfil</a> </li>
+                                        <li> <a href="#">Logout</a> </li>
                                     </ul>
                                 </nav>
                             </div>
@@ -86,10 +84,9 @@
             <div class="container">
 
                 <div class="text-bg relative">
-                    <h1>Mp3<br><span class="Perfect">The Perfect Music</span><br>Welcome To The Music</h1>
-                    <p>Lorem ipsum dolor sit amet consec tetur adipiscing elit elit at felis lacinia nec et est
-                        <br> aptent taciti sociosqu ad litora torquent per conubia nostra</p>
-                    <a href="#">Download Now</a>
+                    <h1>LEGACY<br><span class="Perfect">Tu Musica Favorita</span><br>Agrega Canciones Sin costo alguno!</h1>
+                    <p>La mejor aplicacion donde lo posible es posible.</p>
+                    <a href="#">Ponte Legacy</a>
                 </div>
 
             </div>
@@ -98,41 +95,47 @@
     </section>
 
     <!-- music-box  -->
+    
     <div class="music-box">
         <div class="container">
+            <h2 class="center negritas">GENEROS</h2>
             <div class="row">
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                    <div class="for-box">
-                        <i><img src="icon/icon1.png" alt="icon"/></i>
-                        <h3>Custom Player</h3>
-                        <p>t is a long established fact that a reader will be distracted by the readable </p>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                    <div class="for-box">
-                        <i><img src="icon/icon2.png" alt="icon"/></i>
-                        <h3>Easy customize</h3>
-                        <p>t is a long established fact that a reader will be distracted by the readable </p>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                    <div class="for-box">
-                        <i><img src="icon/icon3.png" alt="icon"/></i>
-                        <h3>Music Playlist</h3>
-                        <p>t is a long established fact that a reader will be distracted by the readable </p>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                    <div class="for-box">
-                        <i><img src="icon/icon4.png" alt="icon"/></i>
-                        <h3>Custom Gallery</h3>
-                        <p>t is a long established fact that a reader will be distracted by the readable </p>
-                    </div>
-                </div>
+                <ul class="nav nav-tabs">
+                    
+                    <li class="active"><a data-toggle="tab" href="#home"><img class ="dividir" src="icon/icon1.png" alt="icon"/><h3 class="center negritas">POP</h3></a></li>
+                    <li><a data-toggle="tab" href="#menu1"><img class ="dividir" src="icon/icon1.png" alt="icon"/></a><h3 class="center negritas">ROCK</h3></a></li>
+                    <li><a data-toggle="tab" href="#menu2"><img class ="dividir" src="icon/icon1.png" alt="icon"/></a><h3 class="center negritas">RAP</h3></a></li>
+                    <li><a data-toggle="tab" href="#menu3"><img class ="dividir" src="icon/icon1.png" alt="icon"/></a><h3 class="center negritas">REGGAE</h3></a></li>
+                    <li><a data-toggle="tab" href="#menu3"><img class ="dividir" src="icon/icon1.png" alt="icon"/></a><h3 class="center negritas">HIP-HOP</h3></a></li>
+                    <li><a data-toggle="tab" href="#menu3"><img class ="dividir" src="icon/icon1.png" alt="icon"/></a><h3 class="center negritas">HIP-HOP</h3></a></li>
+
+                </ul>
             </div>
+            <div class="tab-content">
+                <div id="home" class="tab-pane fade in active">
+                  <h3 class="center margin-h2">Que Nos Paso <audio src="audio.mp3" preload="none" controls></audio></h3>
+                  
+                </div>
+                <div id="menu1" class="tab-pane fade">
+                  <h3>Menu 1</h3>
+                  <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
+                <div id="menu2" class="tab-pane fade">
+                  <h3>Menu 2</h3>
+                  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                </div>
+                <div id="menu3" class="tab-pane fade">
+                  <h3>Menu 3</h3>
+                  <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                </div>
+              </div>
         </div>
     </div>
+  
     <!-- end music-box  -->
+
+     
+
 
     <div class="container-fluid">
         <div class="row">

@@ -48,6 +48,17 @@
      color: #111111;
      margin: 0 
 }
+
+.center {
+    text-align: center;
+}
+
+.margin-h2{
+    margin-bottom: 10px;
+}
+.negritas{
+    font-weight: bold;
+}
  h1 {
      font-size: 24px 
 }
@@ -872,13 +883,11 @@
      position: relative;
      border-bottom: solid #eee 1px;
 }
- .main-menu ul>li .sub-down li a::before {
-}
+
  .main-menu ul>li .sub-down li a:hover {
      color: #111111;
 }
- .main-menu ul>li .sub-down li a:hover::before {
-}
+
  .main-menu ul li:first-child {
      margin-left: 0;
 }
@@ -932,7 +941,7 @@
      display: inline-block;
      vertical-align: middle;
 }
- .main-menu ul>li:nth-child (6) {
+ .main-menu ul>li:nth-child(6) {
      padding-right: 0px;
 }
  .nav>li {
@@ -948,8 +957,7 @@
      right: 0;
      padding: 15px 0px;
 }
- .sub-full {
-}
+
  .simple-down {
      padding: 15px;
 }
@@ -1433,6 +1441,11 @@
      padding: 90px 0px;
      background: #fff;
 }
+
+.dividir{
+    margin:0px 18px;
+}
+
  .music-box .for-box {
      padding: 0px 20px;
 }
@@ -1907,4 +1920,7 @@
      font-weight: 500;
      text-align: center;
 }
- 
+ /**AUDIO*/
+ audio{
+     width: 50%;
+ }
