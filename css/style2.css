@@ -627,19 +627,6 @@
      top: 0px;
 }
 
-select {
-    display: block !important;
-    margin: 0;
-    border: 0;
-    padding: 0;
-    height: 1px;
-    opacity: 0;
-    position: relative;
-    /* Top should be the same as the height of your */
-    /* unfocused, nice select replacement element! */
-    top: 30px;
-}
-
  .header-search input {
      width: 100%;
      min-height: 45px;
@@ -1471,7 +1458,8 @@ select {
 }
 
 .dividir{
-    margin:0px 18px;
+    margin-right: 50px;
+    margin-left: 50px;
 }
 
  .music-box .for-box {
@@ -1950,10 +1938,11 @@ select {
 }
  /**AUDIO*/
  audio{
-     width: 70%;
+     width: 300px;
  }
 
  .Scroll {
     height:300px;
     overflow-y: scroll;
   }
+
