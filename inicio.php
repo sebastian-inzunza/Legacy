@@ -63,10 +63,10 @@
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section">
                         <div class="full">
                             <div class="center-desk">
-                                <div class="logo display">
+                                <div class="logo">
                                     <a href="inicio.html"><img src="img/Legacy-Logo.jpg" width="85px" alt="logo"/></a>
-                                    <p class="user"><?php echo $_SESSION['nombre']?></p>
-                                </div>
+                                    <spam class = "user">Nickname: <?php echo $_SESSION['nombre']?></spam>
+                                </div>          
                             </div>
                         </div>
                     </div>
@@ -81,6 +81,7 @@
                                         <li> <a href="php/logout.php">Logout</a> </li>
                                     </ul>
                                 </nav>
+                                
                             </div>
                         </div>
                     </div>

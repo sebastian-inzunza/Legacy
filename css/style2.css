@@ -363,11 +363,12 @@
 }
 
 .user{
-    color: #ab0d0d;
-    font-size: 30px;
+    color: #585858;
     font-weight: bold;
-    margin-top: 15px;
+    font-size: 15px;
 }
+
+
 .display p{
     font-size: 30px;
     padding: 0px 10px;
