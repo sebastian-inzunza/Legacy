@@ -18,14 +18,14 @@
                 <img src="img/Legacy-Logo.jpg" width="100px"/>
             </div>
             <div class="formContent">
-                <form>
+                <form method="POST" accion = "login.php">
                     <!-- cambiar lass variables name para el uso de php-->
-                    <input type="text" id="login" class="fadeIn second" name="login" placeholder="Usuario">
-                    <input type="text" id="password" class="fadeIn third" name="login" placeholder="Contraseña">
+                    <input type="text" id="nombre" class="fadeIn second" name="nombre" placeholder="Nombre de Usuario">
+                    <input type="password" id="password" class="fadeIn third" name="password" placeholder="Contraseña">
                         <div class="Add">
-                            <p class="font-16px">No tienes cuenta? <a class="underlineHover" href="registro.html">Registrate!!</a></p>
+                            <p class="font-16px">No tienes cuenta? <a class="underlineHover" href="registro.php">Registrate!!</a></p>
                         </div>
-                    <input type="submit" class="fadeIn fourth" value="Entrar">
+                    <input type="submit" id ="login" class="fadeIn fourth" value="Entrar">
                 </form>
 
                     <div class="formFooter">
@@ -34,6 +34,57 @@
             </div>
         </div>
     </header>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#login').click(function(e){
+
+			var valid = this.form.checkValidity(); //Valida que los campos no esten vacios
+
+			if(valid){
+			var nombre = $('#nombre').val();
+			var password = $('#password').val();
+			
+				e.preventDefault();	
+
+				$.ajax({
+					type: 'POST',
+					url: 'php/login.php',
+					data: {nombre: nombre, password: password},
+					success: function(data){
+                        if(data == "1"){ ///Muestra si el registro es correcto      
+                            window.location = "inicio.php";
+                        }
+                        else if(data == "2"){
+                            window.location = "inicio-admin.php";
+                        }
+                        else{
+                            Swal.fire({
+                            'title': 'Error!',
+                            'text': data,
+                            'type': 'error'
+                            }).then(function(result){
+                                window.location = "index.html";
+                            })
+                        }
+                    },
+					error: function(data){ ///Entra aca si el archivo no da respueta o error con la BD 
+					Swal.fire({
+							'title': 'Errors',
+							'text': 'Hubo un problema mientras se te Logeabas.',
+							'type': 'error'
+							})
+					}
+				});
+			}else{
+              
+            }
+		});		
+	});
+	
+</script>
     
 </body>
 </html>

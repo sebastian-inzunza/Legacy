@@ -1,7 +1,6 @@
 <?php 
 
     include 'conexion.php';
-
     $nombre = $_POST['nombre'];
     $correo = $_POST['correo']; 
     $contraseña =  $_POST['password'];
@@ -16,10 +15,7 @@
         $verificar = mysqli_query($conexion, "SELECT * FROM usuario WHERE email= '$correo'");
         
         if (mysqli_num_rows($verificar) > 0){
-            echo'
-             <script>
-                alert("Ese correo ya esta registrado, intente con otro");
-            </script>';
+            echo 'El correo se encuentra registrado.';
             exit;
         }
         
@@ -27,20 +23,13 @@
     
         if ($ejecutar)
         {
-            echo'<script>
-                alert("Usuario registrado");
-                </script>';
+            echo"Usuario registrado";
         }
         mysqli_close($conexion);
 
     }else{
-
-        echo'<center>
-            <div class="alert alert-warning">Login Error!!</div>
-        </center>';
-       
+        echo 'Contraseña Invalida';
     }
-
    
 
 ?>

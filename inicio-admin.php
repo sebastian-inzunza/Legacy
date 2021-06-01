@@ -1,3 +1,19 @@
+<?php
+    session_start();
+
+    if (!isset($_SESSION['nombre'])){
+        echo '
+        <script>
+            alert("Por favor debes iniciar session");
+            window.location ="index.html";
+            </script>
+        ';
+        session_destroy();
+        die();
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,8 +64,9 @@
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section">
                         <div class="full">
                             <div class="center-desk">
-                                <div class="logo">
-                                    <a href="inicio.html"><img src="img/Legacy-Logo.jpg" width="85px" alt="logo"/></a>
+                                <div class="logo display">
+                                    <a href="inicio-admin.html"><img src="img/Legacy-Logo.jpg" width="85px" alt="logo"/></a>
+                                    <p class="user"><?php echo $_SESSION['nombre']?></p>
                                 </div>
                             </div>
                         </div>
@@ -59,10 +76,8 @@
                             <div class="limit-box">
                                 <nav class="main-menu">
                                     <ul class="menu-area-main">
-                                        <li> <a href="blog.html">Mis Canciones</a> </li>
-                                        <li> <a href="#">Playlist</a> </li>
-                                        <li> <a href="#">Perfil</a> </li>
-                                        <li> <a href="#">Logout</a> </li>
+                                        <li> <a href="#">Reportes</a> </li>
+                                        <li> <a href="php/logout.php">Logout</a> </li>
                                     </ul>
                                 </nav>
                             </div>
@@ -85,7 +100,7 @@
             <div class="container">
 
                 <div class="text-bg relative">
-                    <h1>LEGACY<br><span class="Perfect">Tu Musica Favorita</span><br>Agrega Canciones Sin costo alguno!</h1>
+                    <h1>LEGACY<br><span class="Perfect"> Tu Musica Favorita</span><br>Agrega Canciones Sin costo alguno!</h1>
                     <p>La mejor aplicacion donde lo posible es posible.</p>
                     <a href="#">Ponte Legacy</a>
                 </div>
