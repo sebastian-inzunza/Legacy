@@ -1,3 +1,19 @@
+<?php
+    session_start();
+
+    if (!isset($_SESSION['nombre'])){
+        echo '
+        <script>
+            alert("Por favor debes iniciar session");
+            window.location ="index.html";
+            </script>
+        ';
+        session_destroy();
+        die();
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +25,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- site metas -->
-    <title>Legacy | Inicio</title>
+    <title>Legacy | Mis Canciones</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -49,8 +65,8 @@
                         <div class="full">
                             <div class="center-desk">
                                 <div class="logo">
-                                    <a href="inicio.html"><img src="img/Legacy-Logo.jpg" width="85px" alt="logo"/></a>
-                                </div>
+                                    <a href="inicio.php"><img src="img/Legacy-Logo.jpg" width="85px" alt="logo"/></a>
+                                    <spam class = "user">Nickname: <?php echo $_SESSION['nombre']?></spam>                                </div>
                             </div>
                         </div>
                     </div>
@@ -59,10 +75,10 @@
                             <div class="limit-box">
                                 <nav class="main-menu">
                                     <ul class="menu-area-main">
-                                        <li> <a href="blog.html">Mis Canciones</a> </li>
+                                        <li class="active"> <a href="#">Mis Canciones</a> </li>
                                         <li> <a href="#">Playlist</a> </li>
                                         <li> <a href="#">Perfil</a> </li>
-                                        <li> <a href="#">Logout</a> </li>
+                                        <li> <a href="php/logout.php">Logout</a> </li>
                                     </ul>
                                 </nav>
                             </div>
@@ -81,11 +97,12 @@
     <!-- end header -->
     <section class="banner_section">
         <div class="banner-main">
-            <img src="img/banner23.jfif"/>
+            <img src="img/Banner-Legacy.png"/>
             <div class="container">
 
                 <div class="text-bg relative">
-                    <h1>LEGACY<br><br>Agrega Canciones Sin costo alguno!</h1>
+                <p><br><span class="Perfect2">¡Hola <?php echo $_SESSION['nombre']?>!</span><br></p>
+                    <h3>Sube tus Canciones y comienza tu Legado</h3>
                     <p>La mejor aplicacion donde lo posible es posible.</p>
                 </div>
 
@@ -159,12 +176,16 @@
                                                 <label for=""></label>
                                             </div>
                                             <div class="col-sm-12">
-                                                <select class=" display contactus">
-                                                    
-                                                    <option value="">Agregar Playlist</option>
-                                                    <option value="1">PlayList 1</option>
-                                                    <option value="2">Playlist 2</option>
-                                                    <option value="3">Playlist 3</option>
+                                                <select class=" display contactus">                                                   
+                                                    <option value="">Genero</option>
+                                                    <option value="Pop">Pop</option>
+                                                    <option value="Rock">Rock</option>
+                                                    <option value="Rap">Rap</option>
+                                                    <option value="Reggae">Reggae</option>
+                                                    <option value="Hip-Hop">Hip-Hop</option>
+                                                    <option value="Trap">Trap</option>
+                                                    <option value="Salsa">Salsa</option>
+                                                    <option value="Electronica">Electronica</option>
                                                 </select>
                                             </div>
                                             <div class="col-sm-12 center" >

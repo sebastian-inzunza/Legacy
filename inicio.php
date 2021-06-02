@@ -63,8 +63,8 @@
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section">
                         <div class="full">
                             <div class="center-desk">
-                                <div class="logo">
-                                    <a href="inicio.html"><img src="img/Legacy-Logo.jpg" width="85px" alt="logo"/></a>
+                                <div class="logo menu-area-main">
+                                    <li class="active"><a href="inicio.php"><img src="img/Legacy-Logo.jpg" width="85px" alt="logo"/></a></li>
                                     <spam class = "user">Nickname: <?php echo $_SESSION['nombre']?></spam>
                                 </div>          
                             </div>
@@ -75,7 +75,7 @@
                             <div class="limit-box">
                                 <nav class="main-menu">
                                     <ul class="menu-area-main">
-                                        <li> <a href="subir-cancion.html">Mis Canciones</a> </li>
+                                        <li> <a href="subir-cancion.php">Mis Canciones</a> </li>
                                         <li> <a href="#">Playlist</a> </li>
                                         <li> <a href="#">Perfil</a> </li>
                                         <li> <a href="php/logout.php">Logout</a> </li>
@@ -104,7 +104,7 @@
                 <div class="text-bg relative">
                     <h1>LEGACY<br><span class="Perfect">Tu Musica Favorita</span><br>Agrega Canciones Sin costo alguno!</h1>
                     <p>La mejor aplicacion donde lo posible es posible.</p>
-                    <a href="#">Ponte Legacy</a>
+                    <a href="subir-cancion.php">Ponte Legacy</a>
                 </div>
 
             </div>
@@ -116,7 +116,7 @@
     
     <div class="music-box">
         <div class="container">
-            <h2 class="center negritas">Escucha el contido de otros Creadores:</h2>
+            <h2 class="center negritas">Escucha el contenido de otros Creadores:</h2>
             <div class="row">
                 <ul class="nav nav-tabs">
                     
