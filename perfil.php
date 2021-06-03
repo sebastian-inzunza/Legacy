@@ -77,7 +77,7 @@
                                     <ul class="menu-area-main">
                                         <li> <a href="subir-cancion.php">Mis Canciones</a> </li>
                                         <li> <a href="#">Playlist</a> </li>
-                                        <li> <a href="perfil.php">Perfil</a> </li>
+                                        <li> <a href="#">Perfil</a> </li>
                                         <li> <a href="php/logout.php">Logout</a> </li>
                                     </ul>
                                 </nav>
@@ -98,15 +98,22 @@
     <!-- end header -->
     <section class="banner_section">
         <div class="banner-main">
-            <img src="img/banner2.jpg" />
-            <div class="container">
+            <img src="img/Banner-Legacy-perfil.png"/>
+                <div class="container">
+                    <div class="row relative text-bg ">
+                        <div class="col">
+                            <h2 class= "">Bienvenido: <?php echo $_SESSION['nombre']?></h2>
+                            <span> Total de canciones subidas: </span>
+                            <span><br>Total de playlist:</br> </span>
+                            <span>Total de reportes: </span>
+                        </div>                
 
-                <div class="text-bg relative">
-                    <h1>LEGACY<br><span class="Perfect">Tu Musica Favorita</span><br>Agrega Canciones Sin costo alguno!</h1>
-                    <p>La mejor aplicacion donde lo posible es posible.</p>
-                    <a href="subir-cancion.php">Ponte Legacy</a>
-                </div>
-
+                        <div class="col display">
+                                <div class="img-perfil ">
+                                    <img src="img/perfil.jpg" class="img-thumbnail">
+                                </div>
+                        </div>                
+                    </div>
             </div>
         </div>
 
@@ -114,26 +121,9 @@
 
     <!-- music-box  -->
     
-    <div class="music-box">
+    <div class="music-box-perfil">
         <div class="container">
-            <h2 class="center negritas">Escucha el contenido de otros Creadores:</h2>
-            <div class="row">
-                <ul class="nav nav-tabs">
-                    
-                    <li class="active"><a data-toggle="tab" href="#home"><img class ="dividir" src="icon/icon1.png" alt="icon"/><h3 class="center negritas">POP</h3></a></li>
-                    <li><a data-toggle="tab" href="#menu1"><img class ="dividir" src="icon/icon1.png" alt="icon"/></a><h3 class="center negritas">ROCK</h3></a></li>
-                    <li><a data-toggle="tab" href="#menu2"><img class ="dividir" src="icon/icon1.png" alt="icon"/></a><h3 class="center negritas">RAP</h3></a></li>
-                    <li><a data-toggle="tab" href="#menu3"><img class ="dividir" src="icon/icon1.png" alt="icon"/></a><h3 class="center negritas">REGGAE</h3></a></li>
-                    <li><a data-toggle="tab" href="#menu3"><img class ="dividir" src="icon/icon1.png" alt="icon"/></a><h3 class="center negritas">HIP-HOP</h3></a></li>
-                    <li><a data-toggle="tab" href="#menu3"><img class ="dividir" src="icon/icon1.png" alt="icon"/></a><h3 class="center negritas">TRAP</h3></a></li>
-                    <li><a data-toggle="tab" href="#menu3"><img class ="dividir" src="icon/icon1.png" alt="icon"/></a><h3 class="center negritas">SALSA</h3></a></li>
-                    <li><a data-toggle="tab" href="#menu3"><img class ="dividir" src="icon/icon1.png" alt="icon"/></a><h3 class="center negritas">ELECTRONICA</h3></a></li>
-
-
-                </ul>
-                
-              
-            </div>
+            <h2 class="center negritas">Mis playlist:</h2>
                 <div class="tab-content table-dark"> <!-- Esto vamos a sacamr con un while de la base de datos-->
                         <!-- SECCION POP-->
                         <div id="home" class="tab-pane fade in active Scroll">

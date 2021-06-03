@@ -1444,6 +1444,20 @@
      font-weight: bold;
 }
 
+.banner-main .text-bg h2{
+    color: #fff;
+    font-size: 50px;
+    line-height: 90px;
+    font-weight: bold;
+}
+
+.banner-main .text-bg span{
+    color: #fff;
+    font-size: 30px;
+    line-height: 90px;
+    font-weight: bold;
+}
+
 .banner-main .text-bg h3{
     color: #fff;
     font-size: 50px;
@@ -1476,9 +1490,16 @@
 }
 /** music-box **/
  .music-box {
-     padding: 90px 0px;
+     padding-bottom: 90px;
+     padding-top: 40px;
      background: #fff;
 }
+
+.music-box-perfil {
+    padding: 60px 0px;
+    background: #fff;
+}
+
 
 .dividir{
     margin-right: 22px;
@@ -1984,3 +2005,7 @@
   input[type = file]{
       color: white;
     }
+.img-perfil{
+    width: 300px;
+    height: 300px;
+}
