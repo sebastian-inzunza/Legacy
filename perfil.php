@@ -106,16 +106,16 @@
                             <span> Total de canciones subidas: </span>
                             <span><br>Total de playlist:</br> </span>
                             <span>Total de reportes: </span>
+                            <br><a href="">Editar perfil</a></br>
                         </div>                
 
                         <div class="col display">
                                 <div class="img-perfil ">
                                     <img src="img/perfil.jpg" class="img-thumbnail">
                                 </div>
-                        </div>                
+                        </div>         
                     </div>
-            </div>
-        </div>
+                    <a href="Editar perfil"></a>    
 
     </section>
 
