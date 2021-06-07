@@ -76,8 +76,8 @@
                                 <nav class="main-menu">
                                     <ul class="menu-area-main">
                                         <li class="active"> <a href="#">Mis Canciones</a> </li>
-                                        <li> <a href="#">Playlist</a> </li>
-                                        <li> <a href="#">Perfil</a> </li>
+                                        <li> <a href="playlists.php">Playlist</a> </li>
+                                        <li> <a href="perfil.php">Perfil</a> </li>
                                         <li> <a href="php/logout.php">Logout</a> </li>
                                     </ul>
                                 </nav>

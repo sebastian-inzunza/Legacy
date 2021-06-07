@@ -76,8 +76,8 @@
                                 <nav class="main-menu">
                                     <ul class="menu-area-main">
                                         <li> <a href="subir-cancion.php">Mis Canciones</a> </li>
-                                        <li> <a href="#">Playlist</a> </li>
-                                        <li> <a href="#">Perfil</a> </li>
+                                        <li> <a href="playlists.php">Playlist</a> </li>
+                                        <li> <a href="perfil.php">Perfil</a> </li>
                                         <li> <a href="php/logout.php">Logout</a> </li>
                                     </ul>
                                 </nav>
@@ -106,7 +106,7 @@
                             <span> Total de canciones subidas: </span>
                             <span><br>Total de playlist:</br> </span>
                             <span>Total de reportes: </span>
-                            <br><a href="">Editar perfil</a></br>
+                            <br><a href="editar-perfil.php">Editar perfil</a></br>
                         </div>                
 
                         <div class="col display">
