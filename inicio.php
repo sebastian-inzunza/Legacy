@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    if (!isset($_SESSION['nombre'])){
+    if (!isset($_SESSION['usuario'])){
         echo '
         <script>
             alert("Por favor debes iniciar session");
@@ -11,7 +11,6 @@
         session_destroy();
         die();
     }
-
 ?>
 
 <!DOCTYPE html>
@@ -50,9 +49,9 @@
 <body class="main-layout">
  
     <!-- loader  -->
-    <div class="loader_bg">
+    <!-- <div class="loader_bg">
         <div class="loader"><img src="img/disc.gif" alt="#" /></div>
-    </div>
+    </div> -->
     <!-- end loader -->
     <!-- header -->
     <header>
@@ -63,10 +62,12 @@
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section">
                         <div class="full">
                             <div class="center-desk">
+                            <?php foreach($_SESSION['usuario'] as $indice => $usuario){?>
                                 <div class="logo menu-area-main">
                                     <li class="active"><a href="inicio.php"><img src="img/Legacy-Logo.jpg" width="85px" alt="logo"/></a></li>
-                                    <spam class = "user">Nickname: <?php echo $_SESSION['nombre']?></spam>
-                                </div>          
+                                    <spam class = "user">Nickname:  <?php echo $usuario['NOMBRE'];?> </spam>
+                                </div>    
+                                <?php } ?>      
                             </div>
                         </div>
                     </div>

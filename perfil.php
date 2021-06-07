@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    if (!isset($_SESSION['nombre'])){
+    if (!isset($_SESSION['usuario'])){
         echo '
         <script>
             alert("Por favor debes iniciar session");
@@ -63,9 +63,10 @@
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section">
                         <div class="full">
                             <div class="center-desk">
+                            <?php foreach($_SESSION['usuario'] as $indice => $usuario){?>
                                 <div class="logo menu-area-main">
-                                    <li class="active"><a href="inicio.php"><img src="img/Legacy-Logo.jpg" width="85px" alt="logo"/></a></li>
-                                    <spam class = "user">Nickname: <?php echo $_SESSION['nombre']?></spam>
+                                    <li><a href="inicio.php"><img src="img/Legacy-Logo.jpg" width="85px" alt="logo"/></a></li>
+                                    <spam class = "user">Nickname: <?php echo $usuario['NOMBRE'];?></spam>
                                 </div>          
                             </div>
                         </div>
@@ -102,7 +103,7 @@
                 <div class="container">
                     <div class="row relative text-bg ">
                         <div class="col">
-                            <h2 class= "">Bienvenido: <?php echo $_SESSION['nombre']?></h2>
+                            <h2 class= "">Bienvenido: <?php echo $usuario['NOMBRE']?></h2>
                             <span> Total de canciones subidas: </span>
                             <span><br>Total de playlist:</br> </span>
                             <span>Total de reportes: </span>
@@ -118,7 +119,7 @@
                     <a href="Editar perfil"></a>    
 
     </section>
-
+<?php } ?>
     <!-- music-box  -->
     
     <div class="music-box-perfil">

@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    if (!isset($_SESSION['nombre'])){
+    if (!isset($_SESSION['usuario'])){
         echo '
         <script>
             alert("Por favor debes iniciar session");
@@ -61,12 +61,15 @@
         <div class="header">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section">
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section">
                         <div class="full">
                             <div class="center-desk">
-                                <div class="logo">
-                                    <a href="inicio.php"><img src="img/Legacy-Logo.jpg" width="85px" alt="logo"/></a>
-                                    <spam class = "user">Nickname: <?php echo $_SESSION['nombre']?></spam>                                </div>
+                            <?php foreach($_SESSION['usuario'] as $indice => $usuario){?>
+                                <div class="logo menu-area-main">
+                                    <li><a href="inicio.php"><img src="img/Legacy-Logo.jpg" width="85px" alt="logo"/></a></li>
+                                    <spam class = "user">Nickname: <?php echo $usuario['NOMBRE'];?></spam>
+                                </div>     
+                              
                             </div>
                         </div>
                     </div>
@@ -101,7 +104,7 @@
             <div class="container">
 
                 <div class="text-bg relative">
-                <p><br><span class="Perfect2">¡Hola <?php echo $_SESSION['nombre']?>!</span><br></p>
+                <p><br><span class="Perfect2">¡Hola <?php echo $usuario['NOMBRE']?>!</span><br></p>
                     <h3>Sube tus Canciones y comienza tu Legado</h3>
                     <p>La mejor aplicacion donde lo posible es posible.</p>
                 </div>
@@ -111,6 +114,7 @@
 
     </section>
     <!-- music-box  -->
+    <?php } ?>
     <div class="music-box">
         <div class="container">
             <div class="myDivElement">

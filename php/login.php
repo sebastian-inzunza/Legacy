@@ -15,9 +15,21 @@
     //Si la consulta en cuentra 1 usuario con el cual coencida con nombre y password entra al if
     if (mysqli_num_rows($validar_login_usuario) > 0){
         //Aqui hacemos lo de la otra pagina
-        $_SESSION['nombre'] = $nombre; //iniciamos la sesion 
+        $todo = mysqli_fetch_array($validar_login_usuario); //con esto sacamos todos los campos del usuario
+        if(!isset($_SESSION['usuario'])){    //no se olviden poner el " ! "
+
+            $usuario=array(
+
+               'ID'=>$todo['id'],
+
+               'NOMBRE'=>$todo['nombre'],
+
+               'EMAIL'=>$todo['email'],
+            );
+         $_SESSION['usuario'][0]=$usuario;    //iniciamos la sesion
          echo '1'; //el archivo responde con 1 al ajax el cual se encuentra en index.html y nos resdirecciona a inicio.php
          exit();
+        }
     } elseif (mysqli_num_rows($validar_login_admin) > 0) {
         $_SESSION['nombre'] = $nombre;
         echo '2';//el archivo responde con 1 al ajax el cual se encuentra en index.html y nos resdirecciona a inicio-admin.php
