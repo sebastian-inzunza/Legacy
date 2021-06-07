@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include 'php/conexion.php'; ///Requerimos el archivo que hace la conexion con BD
 
     if (!isset($_SESSION['usuario'])){
         echo '
@@ -115,7 +116,12 @@
 
                         <div class="col display">
                                 <div class="img-perfil ">
-                                    <img src="img/perfil.jpg" class="img-thumbnail">
+                                <?php
+                                    /// Se hace una consulta con BD a la tabla perfil
+                                    $select =  mysqli_query($conexion, "SELECT * FROM perfil WHERE id='" . $usuario[ "ID" ] . "'" );
+                                    $usuario =  mysqli_fetch_array($select);
+                                    ?>
+                                    <img src= "<?php echo $usuario['foto'] ?>" " class="img-thumbnail">
                                 </div>
                         </div>         
                     </div>
