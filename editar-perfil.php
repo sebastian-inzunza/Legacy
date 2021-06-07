@@ -11,7 +11,7 @@
         session_destroy();
         die();
     }
-
+    
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +24,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- site metas -->
-    <title>Legacy | Inicio</title>
+    <title>Legacy | Editar-perfil</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -104,7 +104,9 @@
                         <div class="col">
                         
                         <h2 >Bienvenido: <?php echo $_SESSION['nombre']?></h2>
-                        <p>Correo: sebastian_a9@gotmail.com</p>
+                        <p>Correo: ejemploDeCorreo@ejem.com 
+                        
+                        </p>
 
                         <input class="contactus-perfil" type="text" placeholder="Escribe tu nombre: ">
                         <input class="contactus-perfil" type="text" placeholder="Escribe tu contraseña: ">
