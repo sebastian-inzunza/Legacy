@@ -116,10 +116,14 @@
 
                         <div class="col display">
                                 <div class="img-perfil ">
-                                <?php
-                                    /// Se hace una consulta con BD a la tabla perfil
-                                    $select =  mysqli_query($conexion, "SELECT * FROM perfil WHERE id='" . $usuario[ "ID" ] . "'" );
-                                    $usuario =  mysqli_fetch_array($select);
+                                    <?php
+                                        /// Se hace una consulta con BD a la tabla perfil
+                                        $select =  mysqli_query($conexion, "SELECT * FROM perfil WHERE id='" . $usuario[ "ID" ] . "'" );
+                                        $usuario =  mysqli_fetch_array($select);
+
+                                        if($usuario['foto']==""){// Se le asigna imagen default si no tiene una en la base de datos
+                                            $usuario['foto'] = "img/perfil.jpg";
+                                        }
                                     ?>
                                     <img src= "<?php echo $usuario['foto'] ?>" " class="img-thumbnail">
                                 </div>
