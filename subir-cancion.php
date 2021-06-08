@@ -114,7 +114,7 @@
 
     </section>
     <!-- music-box  -->
-    <?php } ?>
+    
     <div class="music-box">
         <div class="container">
             <div class="myDivElement">
@@ -133,10 +133,17 @@
                                     <td><p>Cancion</p></td>
                                     <td class = "center"><p>Reproducir</p></td>
                                 </tr>
+
+                                <?php
+                                    include 'php/conexion.php';
+                                    $query=mysqli_query($conexion, "SELECT * FROM cancion WHERE idUsuario='" . $usuario[ "ID" ] . "'");
+                                    while($row = mysqli_fetch_array($query))
+                                    { 
+                                    ?>
                                 <tr>
-                                    <td class="center">Sebastian Alonso</td>
-                                    <td class="center">I´m Willing</td>
-                                    <td class="display"><audio class="margin-reproductor"src="YUNG BAE - Bae - 05 I'm Willing (w-tuuwa).mp3" preload="none" controls></audio></td>
+                                    <td class="center"><?php echo $usuario["NOMBRE"];?></td>
+                                    <td class="center"><?php echo $row["titulo"];?></td>
+                                    <td class="display"><audio class="margin-reproductor"src="musica/<?php echo $row["titulo"];?>" preload="none" controls></audio></td>
                                     <td><a data-toggle="tab" href="#"><img class ="dividir" src="icon/boton-x.png" alt="icon" width="30px"/></a></td>
                                     <td >
                                         <select class="selectpicker display">
@@ -148,21 +155,8 @@
                                        
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td class="center">Sebastian Alonso</td>
-                                    <td class="center">Kids</td>
-                                    <td class="display"><audio class="margin-reproductor"src="KIDS.mp3" preload="none" controls></audio></td>
-                                    <td><a data-toggle="tab" href="#"><img class ="dividir" src="icon/boton-x.png" alt="icon" width="30px"/></a></td>
-                                    <td >
-                                        <select class="selectpicker display">
-                                            <option value="">Agregar Playlist</option>
-                                            <option value="1">PlayList 1</option>
-                                            <option value="2">Playlist 2</option>
-                                            <option value="3">Playlist 3</option>
-                                        </select>
-                                       
-                                    </td>
-                                </tr>
+                                <?php }// se cierra el while
+                                        } ?> <!-- se cierra el foreach-->
                             </table>
                         </div>
                         <!-- FIN SECCION POP-->
@@ -173,14 +167,13 @@
                             
                                 <div class="address ">
                                     <h3 class="center">Sube tus archivos</h3>
-                                    <form class="display">
+                                    <form enctype="multipart/form-data" class="display" action="php/subir-musica.php" method="POST" >
                                         <div class="row">
                                             <div class="col-sm-12"> 
-                                                <input class="contactus" type="file">
-                                                <label for=""></label>
+                                                <input class="contactus" type="file" name="archivo" accept='audio/*' required>
                                             </div>
                                             <div class="col-sm-12">
-                                                <select class=" display contactus">                                                   
+                                                <select class=" display contactus" name="genero">                                                   
                                                     <option value="">Genero</option>
                                                     <option value="Pop">Pop</option>
                                                     <option value="Rock">Rock</option>
@@ -193,7 +186,7 @@
                                                 </select>
                                             </div>
                                             <div class="col-sm-12 center" >
-                                                <button class="send" href="#">Subir</button>
+                                                <button class="send" value="Subir Archivo" >Subir</button>
                                             </div>
                                               
                                         </div>
