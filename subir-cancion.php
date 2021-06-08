@@ -167,13 +167,13 @@
                             
                                 <div class="address ">
                                     <h3 class="center">Sube tus archivos</h3>
-                                    <form enctype="multipart/form-data" class="display" action="php/subir-musica.php" method="POST" >
+                                    <form enctype="multipart/form-data" class="display" id="fupForm" action="php/subir-musica.php" method="POST" >
                                         <div class="row">
                                             <div class="col-sm-12"> 
-                                                <input class="contactus" type="file" name="archivo" accept='audio/*' required>
+                                                <input class="contactus" type="file" id="archivo" name="archivo" accept='audio/*' required>
                                             </div>
                                             <div class="col-sm-12">
-                                                <select class=" display contactus" name="genero">                                                   
+                                                <select class=" display contactus" id="genero" name="genero">                                                   
                                                     <option value="">Genero</option>
                                                     <option value="Pop">Pop</option>
                                                     <option value="Rock">Rock</option>
@@ -186,7 +186,7 @@
                                                 </select>
                                             </div>
                                             <div class="col-sm-12 center" >
-                                                <button class="send" value="Subir Archivo" >Subir</button>
+                                                <button type="submit" class="send" name="subir" id="subir" value="Subir Archivo" >Subir</button>
                                             </div>
                                               
                                         </div>
@@ -261,9 +261,60 @@
     <!-- sidebar -->
     <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="js/custom.js"></script>
-    <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+    <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.1/jquery.fancybox.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script type="text/javascript">
+    //esto es codigo Ajax, nos ayudara a mandar los mensajes de error  
+       $(document).ready(function(){
+           var frm = $("#fupForm");
+           var btnEnviar = $("button[type=submit]");
+
+           var textoSubir = btnEnviar.text();
+           var textoSubiendo = "Cargando Cancion";
+
+
+           frm.bind("submit",function(){
+               var frmData = new FormData;
+               frmData.append("archivo",$("input[name=archivo]")[0].files[0]);
+               
+               $.ajax({
+                   url: frm.attr("action"),
+                   type: frm.attr("method"),
+                   data: frmData,
+                   processData: false,
+                   contentType: false,
+                   cache: false,
+                   beforeSend: function(data){
+                        btnEnviar.html(textoSubiendo);
+                        btnEnviar.attr("disable",true);
+                   },
+                   success: function(data){
+                       if(data = "Cancion subida")
+                        Swal.fire({
+                                'title': 'Hecho!',
+                                'text': "Se subio la cancion correctamente", //y el motivo que imprime es la respuesta del archivo "Usuario registrado"
+                                'type': 'success'
+                                })
+                        else{
+                            Swal.fire({ 
+                                'title': 'Error',
+                                'text': "No se pudo subir la cancion :(", //y aca Imprime  error especifico o la respuesta de nuestro archivo php
+                                'type': 'error'
+                                })
+                        }
+                        btnEnviar.html("Subir otra cancion");
+                        btnEnviar.attr("disable",false);
+
+                   }
+               });
+
+
+               return false;
+           });
+       });
+    </script>      
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
