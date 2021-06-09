@@ -144,7 +144,11 @@
                                     <td class="center"><?php echo $usuario["NOMBRE"];?></td>
                                     <td class="center"><?php echo $row["titulo"];?></td>
                                     <td class="display"><audio class="margin-reproductor"src="musica/<?php echo $row["titulo"];?>" preload="none" controls></audio></td>
-                                    <td><a data-toggle="tab" href="#"><img class ="dividir" src="icon/boton-x.png" alt="icon" width="30px"/></a></td>
+                                    <form action="php/eliminar-cancion.php" method="POST">
+                                    <input type="hidden" name="id" value="<?php echo $row['id'];?>">
+                                   
+                                    <td><button class="btn-padding"><img type="submit" src="icon/boton-x.png" alt="icon" width="30px"></button></td>
+                                    </form>
                                     <td >
                                         <select class="selectpicker display">
                                             <option value="">Agregar Playlist</option>
@@ -152,7 +156,6 @@
                                             <option value="2">Playlist 2</option>
                                             <option value="3">Playlist 3</option>
                                         </select>
-                                       
                                     </td>
                                 </tr>
                                 <?php }// se cierra el while

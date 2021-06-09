@@ -564,6 +564,15 @@
      cursor: pointer;
      color: #ffffff;
 }
+button{
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+}
+
+
  .right-dropdown-currency .dropdown-link {
      min-width: 100px;
      padding: 7px 10px;
@@ -609,6 +618,11 @@
  .btn-template-outlined i {
      padding-right: 10px;
 }
+
+.btn-padding{
+    padding: 0px 20px;
+}
+
  .text-muted {
      padding: 10px 0px;
 }
