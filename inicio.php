@@ -150,7 +150,7 @@
                                     <td class="center">Yung Bae</td>
                                     <td class="center">I´m Willing</td>
                                     <td class="display"><audio class="margin-reproductor"src="YUNG BAE - Bae - 05 I'm Willing (w-tuuwa).mp3" preload="none" controls></audio></td>
-                                    <td><a data-toggle="tab" href="#"><img class ="dividir" src="icon/prohibido.png" alt="icon" width="30px"/></a></td>
+                                    <td><a href="Interfaz_Reportar_Contenido.php"><img class ="dividir" src="icon/prohibido.png" alt="icon" width="30px"/></a></td>
                                     <td >
                                         <select class="selectpicker display">
                                             <option value="">Agregar Playlist</option>
@@ -223,7 +223,7 @@
                                     <td class="center">Yung Bae</td>
                                     <td class="center">I´m Willing</td>
                                     <td class="display"><audio class="margin-reproductor"src="YUNG BAE - Bae - 05 I'm Willing (w-tuuwa).mp3" preload="none" controls></audio></td>
-                                    <td><a data-toggle="tab" href="#"><img class ="dividir" src="icon/prohibido.png" alt="icon" width="30px"/></a></td>
+                                    <td><a data-toggle="tab" href="Interfaz_Reportar_Contenido.php"><img class ="dividir" src="icon/prohibido.png" alt="icon" width="30px"/></a></td>
                                     <td>
                                         <select class="selectpicker display">
                                             <option value="">Agregar Playlist</option>

@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    if (!isset($_SESSION['nombre'])){
+    if (!isset($_SESSION['usuario'])){
         echo '
         <script>
             alert("Por favor debes iniciar session");
@@ -73,10 +73,11 @@
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section">
                         <div class="full">
                             <div class="center-desk">
+                            <?php foreach($_SESSION['usuario'] as $indice => $usuario){?>
                                 <div class="logo menu-area-main">
                                     <li><a href="inicio.php"><img src="img/Legacy-Logo.jpg" width="85px" alt="logo"/></a></li>
-                                    <spam class = "user">Nickname: <?php echo $_SESSION['nombre']?></spam>
-                                </div>          
+                                    <spam class = "user">Nickname: <?php echo $usuario['NOMBRE'];?></spam>
+                                </div>         
                             </div>
                         </div>
                     </div>
@@ -113,14 +114,14 @@
             <div class="container">
 
                 <div class="text-bg relative">
-                <p><br><span class="Perfect2">¡Hola <?php echo $_SESSION['nombre']?>!</span><br></p>
+                <p><br><span class="Perfect2">¡Hola <?php echo $usuario['NOMBRE']?>!</span><br></p>
                     <h2>¿Algún contenido no te gustó, escuchaste algo mal?</h2>
                     <p><span class="Perfect1">Reporta las incidencias en el siguiente formato</span></p>
                 </div>
             </div>   
         </div>
     </section>
-    
+    <?php }?>
     <div class="music-box">
         <div class="container">
             <h2 class="center negritas">Reportar</h2>
@@ -128,11 +129,7 @@
                         <div id="home" class="tab-pane fade in active Scroll">
                             <table class="display margin_top_30 ">
                             <form class="display">
-                                
                                 <div class="col-sm-12 margin_top_30">
-                                    <input class="contactus" placeholder="Nombre del archivo" type="text" name="Name">
-                                </div>
-                                <div class="col-sm-12">
                                     <select class=" display contactus">
                                         <option value="Motivo">Motivo</option>                                                   
                                         <option value="Mal_audio">Mal audio</option>
