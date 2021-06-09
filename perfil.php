@@ -123,7 +123,7 @@
                                         }
                                         
                                     ?>
-                                    <img src= "<?php echo $usuario['foto'] ?>" " class="img-thumbnail">
+                                    <img src= "avatar/<?php echo $usuario['foto'] ?>" " class="img-thumbnail">
                                 </div>
                         </div>         
                     </div>

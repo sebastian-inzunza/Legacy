@@ -122,10 +122,19 @@
                                         $usuario =  mysqli_fetch_array($select);
 
                                         if($usuario['foto']==""){// Se le asigna imagen default si no tiene una en la base de datos
-                                            $usuario['foto'] = "img/perfil.jpg";
+                                            $usuario['foto'] = "avatar/perfil.jpg";
                                         }
                                     ?>
-                                    <img src= "<?php echo $usuario['foto'] ?>" " class="img-thumbnail">
+                                    <img src= "avatar/<?php echo $usuario['foto'] ?>" " class="img-thumbnail">
+                                    <form enctype="multipart/form-data" class="display" id="fupForm" action="php/subir-foto.php" method="POST" >
+                                        <div class="col-sm-12 margin_top_30" > 
+                                            <input class="contactus" type="file" id="archivo" name="archivo" accept='image/*' required>
+                                        </div>
+                                        
+                                        <div class="col-sm-12 center margin_top_30" >
+                                            <button type="submit" class="send" name="subir" id="subir" value="Subir Archivo" >Subir</button>
+                                        </div>
+                                    </form>
                                 </div>
                         </div>         
                     </div>
@@ -165,10 +174,60 @@
     <script src="js/custom.js"></script>
     <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    //esto es codigo Ajax, nos ayudara a mandar los mensajes de error  
+       $(document).ready(function(){
+           var frm = $("#fupForm");
+           var btnEnviar = $("button[type=submit]");
+
+           var textoSubir = btnEnviar.text();
+           var textoSubiendo = "Cargando foto";
+
+
+           frm.bind("submit",function(){
+               var frmData = new FormData;
+               frmData.append("archivo",$("input[name=archivo]")[0].files[0]);
+               
+               $.ajax({
+                   url: frm.attr("action"),
+                   type: frm.attr("method"),
+                   data: frmData,
+                   processData: false,
+                   contentType: false,
+                   cache: false,
+                   beforeSend: function(data){
+                        btnEnviar.html(textoSubiendo);
+                        btnEnviar.attr("disable",true);
+                   },
+                   success: function(data){
+                       if(data = "Foto actualizada")
+                        Swal.fire({
+                                'title': 'Hecho!',
+                                'text': "Se actualizo la foto correctamente", //y el motivo que imprime es la respuesta del archivo "Usuario registrado"
+                                'type': 'success'
+                                })
+                        else{
+                            Swal.fire({ 
+                                'title': 'Error',
+                                'text': "No se pudo actualizar la foto :(", //y aca Imprime  error especifico o la respuesta de nuestro archivo php
+                                'type': 'error'
+                                })
+                        }
+                        btnEnviar.html("Subir otra foto");
+                        btnEnviar.attr("disable",false);
+
+                   }
+               });
+
+
+               return false;
+           });
+       });
+    </script>  
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
     
 </body>
 
