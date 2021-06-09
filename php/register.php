@@ -28,7 +28,15 @@
         if ($ejecutar) //Si lo hizo correctamente 
         {
             echo"Usuario registrado"; //mandara este mensaje avisando que el registro fue hecho
+
+            // Se crea inicializa 'perfil' en la BD
+            // Hacemos una consulta para obtener la id asignada al usuario
+            $query =  mysqli_query($conexion, "SELECT id FROM usuario WHERE email= '$correo'");
+            $usuario = mysqli_fetch_array($query);//con esto sacamos todos los campos del usuario
+            //escribimos  Insert a la tabla perfil donde ingresamos la id y los valores por predeterminado
+            $ejecutar = mysqli_query($conexion, "INSERT INTO perfil( id, foto, detalle ) VALUES ( '$usuario[0]', '', '' ) "); ///mandamos la conexion junto al Insert
         }
+
         mysqli_close($conexion); //Cerramos la conexion con BD
 
     }
