@@ -122,7 +122,7 @@
                                         $usuario =  mysqli_fetch_array($select);
 
                                         if($usuario['foto']==''){// Se le asigna imagen default si no tiene una en la base de datos
-                                            $usuario['foto'] = "perfil.jpg";
+                                            $usuario['foto'] = "avatar/perfil.jpg";
                                         }
                                     ?>
                                     <img src= "avatar/<?php echo $usuario['foto'] ?>" " class="img-thumbnail">
@@ -132,7 +132,16 @@
                                         </div>
                                         
                                         <div class="col-sm-12 center margin_top_30" >
-                                            <button type="submit" class="send" name="subir" id="subir" value="Subir Archivo" >Subir</button>
+                                            <button type="submit" class="send" name="subir" id="subir" value="Subir Archivo" >Actualizar imagen</button>
+                                        </div>
+                                    </form>
+
+                                    <form action="php/subir-descripcion.php" method="POST" name="area_texto">                                    
+                                        <div class="col-sm-12">
+                                            <textarea class="textarea" type="text" id="descripcion" name="descripcion" maxlength="200" ><?php echo $usuario['detalle']?></textarea>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <button type="submit" class="send" name="subir" id="subir" value="Subir Archivo" >Actualizar descripcion</button>
                                         </div>
                                     </form>
                                 </div>
@@ -176,7 +185,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script type="text/javascript">
-    //esto es codigo Ajax, nos ayudara a mandar los mensajes de error  
+    //esto es codigo Ajax, nos ayudara a mandar los mensajes de error  (foto)
        $(document).ready(function(){
            var frm = $("#fupForm");
            var btnEnviar = $("button[type=submit]");

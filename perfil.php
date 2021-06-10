@@ -124,6 +124,12 @@
                                         
                                     ?>
                                     <img src= "avatar/<?php echo $usuario['foto'] ?>" " class="img-thumbnail">
+
+                                    <form action="" >                                    
+                                        <div class="col-sm-12">
+                                            <textarea class="textarea" type="text" readonly name="descripcion"><?php echo $usuario['detalle']?></textarea>
+                                        </div>
+                                    </form>
                                 </div>
                         </div>         
                     </div>
