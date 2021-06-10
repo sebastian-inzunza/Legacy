@@ -109,9 +109,14 @@
                         <h2 >Bienvenido: <?php echo $usuario['NOMBRE'];?></h2>
                         <p>Correo: <?php echo $usuario['EMAIL'];?>  </p>
 
+                        <form action="">
                         <input class="contactus-perfil" type="text" placeholder="Escribe tu nombre: ">
                         <input class="contactus-perfil" type="text" placeholder="Escribe tu contraseña: ">
                         <input class="contactus-perfil" type="text" placeholder="Conftima tu contraseña: ">
+                        <br>
+                        <button type="submit" class="send" name="actualizar"  value="Subir Archivo" >Actualizar</button>
+                        </br>
+                        </form>
                         </div>                
 
                         <div class="col display">

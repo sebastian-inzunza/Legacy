@@ -144,11 +144,13 @@
                                     <td class="center"><?php echo $usuario["NOMBRE"];?></td>
                                     <td class="center"><?php echo $row["titulo"];?></td>
                                     <td class="display"><audio class="margin-reproductor"src="musica/<?php echo $row["titulo"];?>" preload="none" controls></audio></td>
-                                    <form action="php/eliminar-cancion.php" method="POST">
+                                    
+                                    <form action="php/eliminar-cancion.php" id="Form" method="POST">
                                     <input type="hidden" name="id" value="<?php echo $row['id'];?>">
-                                   
-                                    <td><button class="btn-padding"><img type="submit" src="icon/boton-x.png" alt="icon" width="30px"></button></td>
+                                    <input type="hidden" name="archivo2" id="archivo2" value="<?php echo $row['titulo'];?>">
+                                    <td><button  type="submit" class="btn-padding"><img  src="icon/boton-x.png" alt="icon" width="30px"></button></td>
                                     </form>
+
                                     <td >
                                         <select class="selectpicker display">
                                             <option value="">Agregar Playlist</option>
@@ -170,6 +172,7 @@
                             
                                 <div class="address ">
                                     <h3 class="center">Sube tus archivos</h3>
+
                                     <form enctype="multipart/form-data" class="display" id="fupForm" action="php/subir-musica.php" method="POST" >
                                         <div class="row">
                                             <div class="col-sm-12"> 
@@ -191,14 +194,10 @@
                                             <div class="col-sm-12 center" >
                                                 <button type="submit" class="send" name="subir" id="subir" value="Subir Archivo" >Subir</button>
                                             </div>
-                                              
                                         </div>
                                     </form>
-                                </div>
-                           
-                           
-                        </div>
-  
+                                </div>                         
+                      </div>
                </div>
         </div>
     </div>
@@ -270,53 +269,128 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script type="text/javascript">
     //esto es codigo Ajax, nos ayudara a mandar los mensajes de error  
-       $(document).ready(function(){
-           var frm = $("#fupForm");
-           var btnEnviar = $("button[type=submit]");
 
-           var textoSubir = btnEnviar.text();
-           var textoSubiendo = "Cargando Cancion";
-
-
-           frm.bind("submit",function(){
-               var frmData = new FormData;
-               frmData.append("archivo",$("input[name=archivo]")[0].files[0]);
-               
-               $.ajax({
-                   url: frm.attr("action"),
-                   type: frm.attr("method"),
-                   data: frmData,
-                   processData: false,
-                   contentType: false,
-                   cache: false,
-                   beforeSend: function(data){
-                        btnEnviar.html(textoSubiendo);
-                        btnEnviar.attr("disable",true);
-                   },
-                   success: function(data){
-                       if(data = "Cancion subida")
+    $(document).ready(function (e) {
+        
+        $("#fupForm").on('submit',(function(e) { //Este valida Subir cancion 
+        var btnEnviar =  $("#subir");
+        var textoSubir = btnEnviar.text();
+        var textoSubiendo = "Cargando Cancion";
+        e.preventDefault();
+        $.ajax({
+            url: "php/subir-musica.php",
+            type: "POST",
+            data:  new FormData(this),
+            contentType: false,
+            cache: false,
+            processData:false,
+            beforeSend: function(data){
+                btnEnviar.html(textoSubiendo);
+                btnEnviar.attr("disable",true);
+            },
+            success: function(data)
+                {
+                    if(data=='Cancion subida')
+                    {
                         Swal.fire({
-                                'title': 'Hecho!',
-                                'text': "Se subio la cancion correctamente", //y el motivo que imprime es la respuesta del archivo "Usuario registrado"
-                                'type': 'success'
-                                })
-                        else{
+                            title: "La Cancion se subio!",
+                            text: "¿Quieres subir otra cancion?",
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: "Sí, Otra!",
+                            cancelButtonText: "No",
+                            type: 'success'
+                            })
+                            .then(resultado => {
+                                if (resultado.value) {
+                                    // Hicieron click en "Sí"
+                                    btnEnviar.html("Subir otra cancion");
+                                    btnEnviar.attr("disable",false);
+                                } else {
+                                    // Dijeron que no
+                                    window.location = "subir-cancion.php";
+                                }
+                            });
+                    }
+                    else
+                    {
+                        Swal.fire({ 
+                            'title': 'Error',
+                            'text': data, //y aca Imprime  error especifico o la respuesta de nuestro archivo php
+                            'type': 'error'
+                            })
+                    }
+                },
+                error: function(e) 
+                {
+                    Swal.fire({ 
+                       'title': 'Error',
+                       'text': "Se supone que esto no debia pasar, ahorita vemos", //y aca Imprime  error especifico o la respuesta de nuestro archivo php
+                       'type': 'error'
+                    })
+                }          
+            });
+        }));
+
+        $("#Form").on('submit',(function(e){ //este valida eliminar
+      
+        e.preventDefault();
+
+        Swal.fire({
+            title: "¿Seguro que quieres eliminar esta cancion?",
+            text: "Esta operacion no tendra retroceso",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: "Eliminar",
+            cancelButtonText: "No",
+            type: 'warning'
+            })
+            .then(resultado => {
+                if (resultado.value) {
+                    $.ajax({
+                    url: "php/eliminar-cancion.php",
+                    type: "POST",
+                    data:  new FormData(this),
+                    contentType: false,
+                    cache: false,
+                    processData:false,
+                    success: function(data)
+                        {
+                            if(data=='Musica Eliminada')
+                            {
+                                Swal.fire({
+                                    'title': 'Hecho!',
+                                    'text': "Se elimino la cancion", //y el motivo que imprime es la respuesta del archivo "Usuario registrado"
+                                    'type': 'warning'
+                                    }).then(function(result){
+                                        window.location = "subir-cancion.php"; //Despues redirecciona a index.html
+                                    })
+                            }
+                            else
+                            {
+                                Swal.fire({ 
+                                    'title': 'Error',
+                                    'text': data, //y aca Imprime  error especifico o la respuesta de nuestro archivo php
+                                    'type': 'error'
+                                    })
+                            }
+                        },
+                        error: function(e) 
+                        {
                             Swal.fire({ 
-                                'title': 'Error',
-                                'text': "No se pudo subir la cancion :(", //y aca Imprime  error especifico o la respuesta de nuestro archivo php
-                                'type': 'error'
-                                })
-                        }
-                        btnEnviar.html("Subir otra cancion");
-                        btnEnviar.attr("disable",false);
-
-                   }
-               });
-
-
-               return false;
-           });
-       });
+                            'title': 'Error',
+                            'text': "Se supone que esto no debia pasar, ahorita vemos", //y aca Imprime  error especifico o la respuesta de nuestro archivo php
+                            'type': 'error'
+                            })
+                        }          
+                    });
+                    } 
+                });
+     
+        }));
+    });
     </script>      
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
