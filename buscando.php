@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    if (!isset($_SESSION['nombre'])){
+    if (!isset($_SESSION['usuario'])){
         echo '
         <script>
             alert("Por favor debes iniciar session");
@@ -49,10 +49,7 @@
 
 <body class="main-layout">
  
-    <!-- loader  -->
-    <div class="loader_bg">
-        <div class="loader"><img src="img/disc.gif" alt="#" /></div>
-    </div>
+   
     <!-- end loader -->
     <!-- header -->
     <header>
@@ -63,9 +60,11 @@
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section">
                         <div class="full">
                             <div class="center-desk">
+                            <?php foreach($_SESSION['usuario'] as $indice => $usuario){?>
                                 <div class="logo menu-area-main">
+
                                     <li class="active"><a href="inicio.php"><img src="img/Legacy-Logo.jpg" width="85px" alt="logo"/></a></li>
-                                    <spam class = "user">Nickname: <?php echo $_SESSION['nombre']?></spam>
+                                    <spam class = "user">Nickname: <?php echo $usuario['NOMBRE'];?></spam>
                                 </div>          
                             </div>
                         </div>
@@ -103,7 +102,7 @@
 
                 <div class="text-bg relative">
 
-                    <h2>Resultados de la busqueda! <?php echo $_SESSION['nombre']?></h2>
+                    <h2>Resultados de la busqueda! <?php echo $usuario['NOMBRE'];?></h2>
                     <p>La mejor aplicacion donde lo posible es posible.</p>
                     <a href="subir-cancion.php">Ponte Legacy</a>
                 </div>
@@ -127,11 +126,26 @@
                                     <td></td>
                                     <td width = "200px"></td>
                                 </tr>
+                                
+                                <?php
+                                    include 'php/conexion.php';
+                                    $busqueda = $_POST['buscador'];
+                                    $query=mysqli_query($conexion, "SELECT * FROM cancion Where titulo LIKE '".$busqueda."%'");
+                                    
+                                    while($row = mysqli_fetch_array($query))
+                                    { 
+                                    ?>
                                 <tr>
-                                    <td class="center">Yung Bae</td>
-                                    <td class="center">I´m Willing</td>
-                                    <td class="display"><audio class="margin-reproductor"src="YUNG BAE - Bae - 05 I'm Willing (w-tuuwa).mp3" preload="none" controls></audio></td>
-                                    <td><a data-toggle="tab" href="#"><img class ="dividir" src="icon/prohibido.png" alt="icon" width="30px"/></a></td>
+                                    <td class="center"><?php echo $usuario["NOMBRE"];?></td>
+                                    <td class="center dividir"><?php echo $row["titulo"];?></td>
+                                    <td class="display "><audio class="margin-reproductor"src="musica/<?php echo $row["titulo"];?>" preload="none" controls></audio></td>
+                                    
+                                    <form action="php/eliminar-cancion.php" id="Form" method="POST">
+                                    <input type="hidden" name="id" value="<?php echo $row['id'];?>">
+                                    <input type="hidden" name="archivo2" id="archivo2" value="<?php echo $row['titulo'];?>">
+                                    
+                                    </form>
+                                    <td><a href="Interfaz_Reportar_Contenido.php"><img class ="dividir" src="icon/prohibido.png" alt="icon" width="30px"/></a></td>
                                     <td >
                                         <select class="selectpicker display">
                                             <option value="">Agregar Playlist</option>
@@ -139,24 +153,10 @@
                                             <option value="2">Playlist 2</option>
                                             <option value="3">Playlist 3</option>
                                         </select>
-                                       
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td class="center">MGMT</td>
-                                    <td class="center">Kids</td>
-                                    <td class="display"><audio class="margin-reproductor"src="KIDS.mp3" preload="none" controls></audio></td>
-                                    <td><a data-toggle="tab" href="#"><img class ="dividir" src="icon/prohibido.png" alt="icon" width="30px"/></a></td>
-                                    <td >
-                                        <select class="selectpicker display">
-                                            <option value="">Agregar Playlist</option>
-                                            <option value="1">PlayList 1</option>
-                                            <option value="2">Playlist 2</option>
-                                            <option value="3">Playlist 3</option>
-                                        </select>
-                                       
-                                    </td>
-                                </tr>
+                                <?php }// se cierra el while
+                                        } ?>
                             </table>
                         </div>
                         <!-- FIN SECCION POP-->

@@ -87,7 +87,7 @@
                         </div>
                     </div>
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
-                        <form class="search">
+                    <form action="buscando.php" method="post" class="search">
                             <input class="form-control" type="text" placeholder="Buscar..." name="buscador">
                             <button><img src="img/search_icon.png" href="buscando.php"></button>
                         </form>
