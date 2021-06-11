@@ -130,7 +130,7 @@
                                 <?php
                                     include 'php/conexion.php';
                                     $busqueda = $_POST['buscador'];
-                                    $query=mysqli_query($conexion, "SELECT * FROM cancion Where titulo LIKE '".$busqueda."%'");
+                                    $query=mysqli_query($conexion, "SELECT * FROM cancion Where titulo LIKE '%".$busqueda."%'");
                                     
                                     while($row = mysqli_fetch_array($query))
                                     { 
