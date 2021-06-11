@@ -2,16 +2,17 @@
    include 'conexion.php';
 
     $id=$_POST['id'];
-    $archivo =$_POST['archivo2'];
-    $eliminar =  mysqli_query($conexion, "DELETE FROM cancion WHERE id = '$id'");
-    $archivo = "../musica/".$archivo;    
-    if(unlink($archivo) && $eliminar){
-        echo 'Musica Eliminada';
+    $path=$_POST['path'];
+    $path = "../".$path;
+    $eliminar =  mysqli_query($conexion, "DELETE FROM cancion WHERE id = '$id'"); 
+    if(unlink($path) && $eliminar){
+        echo '1';
+        die;
     }
-//Validaciom
     else
     {
-        echo'Error al eliminar';
+        echo'0';
+        die;
     }
 
 ?>

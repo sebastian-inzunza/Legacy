@@ -140,17 +140,13 @@
                                     while($row = mysqli_fetch_array($query))
                                     { 
                                     ?>
-                                <tr>
+                                <tr class="song">
                                     <td class="center"><?php echo $usuario["NOMBRE"];?></td>
                                     <td class="center"><?php echo $row["titulo"];?></td>
-                                    <td class="display"><audio class="margin-reproductor"src="musica/<?php echo $row["titulo"];?>" preload="none" controls></audio></td>
-                                    
-                                    <form action="php/eliminar-cancion.php" id="Form" method="POST">
+                                    <td class="display"><audio class="margin-reproductor"src='musica/<?php echo $row["titulo"];?>' id='song_<?php echo $row['id'];?>' preload="none" controls></audio></td>                               
                                     <input type="hidden" name="id" value="<?php echo $row['id'];?>">
                                     <input type="hidden" name="archivo2" id="archivo2" value="<?php echo $row['titulo'];?>">
-                                    <td><button  type="submit" class="btn-padding"><img  src="icon/boton-x.png" alt="icon" width="30px"></button></td>
-                                    </form>
-
+                                    <td><button data-id='<?php echo $row['id'];?>' type="submit" class="btn-padding"><img  src="icon/boton-x.png" alt="icon" width="30px"></button></td>
                                     <td >
                                         <select class="selectpicker display">
                                             <option value="">Agregar Playlist</option>
@@ -270,7 +266,7 @@
     <script type="text/javascript">
     //esto es codigo Ajax, nos ayudara a mandar los mensajes de error  
 
-    $(document).ready(function (e) {
+    $(document).ready(function (){
         
         $("#fupForm").on('submit',(function(e) { //Este valida Subir cancion 
         var btnEnviar =  $("#subir");
@@ -333,33 +329,28 @@
             });
         }));
 
-        $("#Form").on('submit',(function(e){ //este valida eliminar
-      
-        e.preventDefault();
-
-        Swal.fire({
-            title: "¿Seguro que quieres eliminar esta cancion?",
-            text: "Esta operacion no tendra retroceso",
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: "Eliminar",
-            cancelButtonText: "No",
-            type: 'warning'
+        $('.song button').click(function(){
+            var id = $(this).data('id');
+            // Selecting image source
+            var songElement_src = $('#song_'+id).attr("src");
+            Swal.fire({
+                title: "¿Seguro que quieres eliminar esta cancion?",
+                text: "Esta operacion no tendra retroceso",
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: "Eliminar",
+                cancelButtonText: "No",
+                type: 'warning'
             })
             .then(resultado => {
                 if (resultado.value) {
                     $.ajax({
-                    url: "php/eliminar-cancion.php",
-                    type: "POST",
-                    data:  new FormData(this),
-                    contentType: false,
-                    cache: false,
-                    processData:false,
-                    success: function(data)
-                        {
-                            if(data=='Musica Eliminada')
-                            {
+                        url: 'php/eliminar-cancion.php',
+                        type: 'POST',
+                        data: {'path':songElement_src, 'id': id},
+                        success: function(data){//entra aca si el archivo login.php da una respuesta
+                            if(data == "1"){ ///Si la respuesta del archivo es "Usuario registrado"
                                 Swal.fire({
                                     'title': 'Hecho!',
                                     'text': "Se elimino la cancion", //y el motivo que imprime es la respuesta del archivo "Usuario registrado"
@@ -368,28 +359,20 @@
                                         window.location = "subir-cancion.php"; //Despues redirecciona a index.html
                                     })
                             }
-                            else
-                            {
+                            else{ /// si la respuesta del archivo es otra entrara aca
                                 Swal.fire({ 
                                     'title': 'Error',
                                     'text': data, //y aca Imprime  error especifico o la respuesta de nuestro archivo php
                                     'type': 'error'
-                                    })
-                            }
+                                    }) 
+                            }		
                         },
-                        error: function(e) 
-                        {
-                            Swal.fire({ 
-                            'title': 'Error',
-                            'text': "Se supone que esto no debia pasar, ahorita vemos", //y aca Imprime  error especifico o la respuesta de nuestro archivo php
-                            'type': 'error'
-                            })
-                        }          
                     });
                     } 
                 });
-     
-        }));
+            // AJAX request
+           
+        });
     });
     </script>      
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
