@@ -127,7 +127,7 @@
                                         $usuario =  mysqli_fetch_array($select);
 
                                         if($usuario['foto']==''){// Se le asigna imagen default si no tiene una en la base de datos
-                                            $usuario['foto'] = "avatar/perfil.jpg";
+                                            $usuario['foto'] = "perfil.jpg";
                                         }
                                     ?>
                                     <img src= "avatar/<?php echo $usuario['foto'] ?>" " class="img-thumbnail">
