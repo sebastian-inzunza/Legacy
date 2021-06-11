@@ -51,9 +51,9 @@
 <body class="main-layout">
  
     <!-- loader  -->
-    <div class="loader_bg">
+    <!-- <div class="loader_bg">
         <div class="loader"><img src="img/disc.gif" alt="#" /></div>
-    </div>
+    </div> -->
     <!-- end loader -->
     <!-- header -->
     <header>
@@ -130,7 +130,7 @@
                                             $usuario['foto'] = "perfil.jpg";
                                         }
                                     ?>
-                                    <img src= "avatar/<?php echo $usuario['foto'] ?>" " class="img-thumbnail">
+                                    <img src= "avatar/<?php echo $usuario['foto'] ?>" class="img-thumbnail">
                                     <form enctype="multipart/form-data" class="display" id="fupForm" action="php/subir-foto.php" method="POST" >
                                         <div class="col-sm-12 margin_top_30" > 
                                             <input class="contactus" type="file" id="archivo" name="archivo" accept='image/*' required>
@@ -189,56 +189,61 @@
     <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script type="text/javascript">
-    //esto es codigo Ajax, nos ayudara a mandar los mensajes de error  (foto)
-       $(document).ready(function(){
-           var frm = $("#fupForm");
-           var btnEnviar = $("button[type=submit]");
+    //esto es codigo Ajax, nos ayudara a mandar los mensajes de error  
 
-           var textoSubir = btnEnviar.text();
-           var textoSubiendo = "Cargando foto";
-
-
-           frm.bind("submit",function(){
-               var frmData = new FormData;
-               frmData.append("archivo",$("input[name=archivo]")[0].files[0]);
-               
-               $.ajax({
-                   url: frm.attr("action"),
-                   type: frm.attr("method"),
-                   data: frmData,
-                   processData: false,
-                   contentType: false,
-                   cache: false,
-                   beforeSend: function(data){
-                        btnEnviar.html(textoSubiendo);
-                        btnEnviar.attr("disable",true);
-                   },
-                   success: function(data){
-                       if(data = "Foto actualizada")
+    $(document).ready(function (e) {
+        
+        $("#fupForm").on('submit',(function(e) { //Este valida Subir cancion 
+        var btnEnviar =  $("#subir");
+        var textoSubir = btnEnviar.text();
+        var textoSubiendo = "Cargando Cancion";
+        e.preventDefault();
+        $.ajax({
+            url: "php/subir-foto.php",
+            type: "POST",
+            data:  new FormData(this),
+            contentType: false,
+            cache: false,
+            processData:false,
+            beforeSend: function(data){
+                btnEnviar.html(textoSubiendo);
+                btnEnviar.attr("disable",true);
+            },
+            success: function(data)
+                {
+                    if(data=='Foto actualizada')
+                    {
                         Swal.fire({
-                                'title': 'Hecho!',
-                                'text': "Se actualizo la foto correctamente", //y el motivo que imprime es la respuesta del archivo "Usuario registrado"
-                                'type': 'success'
-                                })
-                        else{
-                            Swal.fire({ 
-                                'title': 'Error',
-                                'text': "No se pudo actualizar la foto :(", //y aca Imprime  error especifico o la respuesta de nuestro archivo php
-                                'type': 'error'
-                                })
-                        }
-                        btnEnviar.html("Subir otra foto");
-                        btnEnviar.attr("disable",false);
-
-                   }
-               });
-
-
-               return false;
-           });
-       });
-    </script>  
+                            'title': 'Hecho!',
+                            'text': "Imagen Actualizada", //y el motivo que imprime es la respuesta del archivo "Usuario registrado"
+                            'type': 'success'
+                            }).then(function(result){
+                                window.location = "editar-perfil.php"; //Despues redirecciona a index.html
+                            })
+                    }
+                    else
+                    {
+                        Swal.fire({ 
+                            'title': 'Error',
+                            'text': data, //y aca Imprime  error especifico o la respuesta de nuestro archivo php
+                            'type': 'error'
+                            })
+                    }
+                },
+                error: function(e) 
+                {
+                    Swal.fire({ 
+                       'title': 'Error',
+                       'text': "Se supone que esto no debia pasar, ahorita vemos", //y aca Imprime  error especifico o la respuesta de nuestro archivo php
+                       'type': 'error'
+                    })
+                }          
+            });
+        }));
+    });
+    </script> 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>

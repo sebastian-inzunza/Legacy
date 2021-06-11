@@ -8,6 +8,7 @@
     if(unlink($archivo) && $eliminar){
         echo 'Musica Eliminada';
     }
+//Validaciom
     else
     {
         echo'Error al eliminar';
