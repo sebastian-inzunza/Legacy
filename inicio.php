@@ -90,7 +90,7 @@
                     <form action="buscando.php" method="post" class="search">
                             <input class="form-control" type="text" placeholder="Buscar..." name="buscador">
                             <button><img src="img/search_icon.png" href="buscando.php"></button>
-                        </form>
+                    </form>
                     </div>
                 </div>
             </div>
@@ -156,6 +156,7 @@
                             
                                 $consulta= "SELECT * FROM cancion";
                                 $resultado= mysqli_query($conexion,$consulta);
+                               
                                 while($data = mysqli_fetch_array($resultado))
                                 { 
                                 if($data['genero']=="Pop"){
@@ -163,7 +164,13 @@
                                     <td class="center"></td>
                                     <td class="center"><?php echo $data['titulo']?></td>
                                     <td class="display"><audio class="margin-reproductor"src="musica/<?php echo $data["titulo"];?>" preload="none" controls></audio></td>
-                                    <td><a href="Interfaz_Reportar_Contenido.php"><img class ="dividir" src="icon/prohibido.png" alt="icon" width="30px"/></a></td>
+                                    <td>
+                                        <form action="Interfaz_Reportar_Contenido.php" method="POST">
+                                            <input type="hidden" name="idCancion" value="<?php echo $data['id'];?>">
+                                            <input type="hidden" name="titulo" value="<?php echo $data['titulo'];?>">
+                                            <button type="submit" class="btn-padding"><img  src="icon/prohibido.png" alt="icon" width="30px"></button>
+                                        </form>
+                                    </td>
                                     <td >
                                         <select class="selectpicker display">
                                             <option value="">Agregar Playlist</option>
@@ -186,7 +193,7 @@
                         <?php
                             $Distinc= "SELECT DISTINCT genero FROM cancion";
                             $result= mysqli_query($conexion,$Distinc);
-                      while($row = mysqli_fetch_array($result))
+                         while($row = mysqli_fetch_array($result))
                            { 
                              if($row['genero']!= "Pop"){
                       ?>
@@ -210,7 +217,13 @@
                                     <td class="center"></td>
                                     <td class="center"><?php echo $data['titulo']?></td>
                                     <td class="display"><audio class="margin-reproductor"src="musica/<?php echo $data["titulo"];?>"  preload="none" controls></audio></td>
-                                    <td><a data-toggle="tab" href="#"><img class ="dividir" src="icon/prohibido.png" alt="icon" width="30px"/></a></td>
+                                    <td>
+                                        <form action="Interfaz_Reportar_Contenido.php" method="POST">
+                                            <input type="hidden" name="idCancion" value="<?php echo $data['id'];?>">
+                                            <input type="hidden" name="titulo" value="<?php echo $data['titulo'];?>">
+                                            <button type="submit" class="btn-padding"><img  src="icon/prohibido.png" alt="icon" width="30px"></button>
+                                        </form>
+                                    </td>
                                     <td>
                                         <select class="selectpicker display">
                                             <option value="">Agregar Playlist</option>
@@ -298,11 +311,11 @@
     <script src="js/custom.js"></script>
     <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+        
 </body>
 
 </html>
