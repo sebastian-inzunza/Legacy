@@ -123,13 +123,10 @@
                                         }
                                         
                                     ?>
-                                    <img src= "avatar/<?php echo $usuario['foto'] ?>" " class="img-thumbnail">
-
-                                    <form action="" >                                    
-                                        <div class="col-sm-12">
-                                            <textarea class="textarea" type="text" readonly name="descripcion"><?php echo $usuario['detalle']?></textarea>
-                                        </div>
-                                    </form>
+                                    <img src= "avatar/<?php echo $usuario['foto'] ?>" class="img-thumbnail">                                  
+                                    <div class="col-sm-12 margin_top_20">
+                                        <textarea class="textarea" type="text" readonly name="descripcion"><?php echo $usuario['detalle']?></textarea>
+                                    </div>        
                                 </div>
                         </div>         
                     </div>

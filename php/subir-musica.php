@@ -17,6 +17,9 @@ if(move_uploaded_file($_FILES['archivo']['tmp_name'], $archivo))
               {
                   echo"Cancion subida"; //mandara este mensaje avisando que el registro fue hecho
               }
+              else{
+                echo"El nombre de tu archivo es demasiado largo";
+              }
               mysqli_close($conexion); //Cerramos la conexion con BD
 } 
 else

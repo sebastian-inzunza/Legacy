@@ -105,51 +105,59 @@
                 <div class="container">
                     <div class="row relative text-bg ">
                         <div class="col">
-                        
-                        <h2 >Bienvenido: <?php echo $usuario['NOMBRE'];?></h2>
-                        <p>Correo: <?php echo $usuario['EMAIL'];?>  </p>
+                            <h2 >Bienvenido: <?php echo $usuario['NOMBRE'];?></h2>
+                            <p>Correo: <?php echo $usuario['EMAIL'];?>  </p>
 
-                        <form action="">
-                        <input class="contactus-perfil" type="text" placeholder="Escribe tu nombre: ">
-                        <input class="contactus-perfil" type="text" placeholder="Escribe tu contraseña: ">
-                        <input class="contactus-perfil" type="text" placeholder="Conftima tu contraseña: ">
-                        <br>
-                        <button type="submit" class="send" name="actualizar"  value="Subir Archivo" >Actualizar</button>
-                        </br>
-                        </form>
+                            <form action="">
+                            <input class="contactus-perfil" type="text" placeholder="Escribe tu nombre: ">
+                            <input class="contactus-perfil" type="text" placeholder="Escribe tu contraseña: ">
+                            <input class="contactus-perfil" type="text" placeholder="Conftima tu contraseña: ">
+                            <br>
+                            <button type="submit" class="send" name="actualizar"  value="Subir Archivo" >Actualizar</button>
+                            </br>
+                            </form>
                         </div>                
-
                         <div class="col display">
-                                <div class="img-perfil ">
-                                    <?php
-                                        /// Se hace una consulta con BD a la tabla perfil
-                                        $select =  mysqli_query($conexion, "SELECT * FROM perfil WHERE id='" . $usuario[ "ID" ] . "'" );
-                                        $usuario =  mysqli_fetch_array($select);
-
-                                        if($usuario['foto']==''){// Se le asigna imagen default si no tiene una en la base de datos
-                                            $usuario['foto'] = "perfil.jpg";
-                                        }
-                                    ?>
+                            <div class="img-perfil">
+                                <?php
+                                    /// Se hace una consulta con BD a la tabla perfil
+                                    $select =  mysqli_query($conexion, "SELECT * FROM perfil WHERE id='" . $usuario[ "ID" ] . "'" );
+                                    $usuario =  mysqli_fetch_array($select);
+                                    if($usuario['foto']==''){// Se le asigna imagen default si no tiene una en la base de datos
+                                        $usuario['foto'] = "perfil.jpg";
+                                    }
+                                ?>
+   
+                                <form enctype="multipart/form-data" id="fupForm" action="php/subir-foto.php" method="POST" >
                                     <img src= "avatar/<?php echo $usuario['foto'] ?>" class="img-thumbnail">
-                                    <form enctype="multipart/form-data" class="display" id="fupForm" action="php/subir-foto.php" method="POST" >
-                                        <div class="col-sm-12 margin_top_30" > 
-                                            <input class="contactus" type="file" id="archivo" name="archivo" accept='image/*' required>
-                                        </div>
-                                        
-                                        <div class="col-sm-12 center margin_top_30" >
+                                    <div class="col-sm-12" > 
+                                        <input class="contactus margin_top_10" type="file" id="archivo" name="archivo" accept='image/*'>
+                                        <input type="hidden" name="idUsuario" value="<?php echo $usuario["id"];?>">
+                                        <textarea class="textarea" type="text" id="descripcion" name="descripcion" maxlength="100" ><?php echo $usuario['detalle']?></textarea>
+                                        <button type="submit" class="send" name="subir" id="subir" value="Subir Archivo" >Listo</button>
+                                    </div>
+                                </form> 
+                             </div>   
+                                                           
+                                
+                            <!-- <div>
+                                <form enctype="multipart/form-data" class="display" id="fupForm" action="php/subir-foto.php" method="POST" >
+                                    <div class="col-sm-12 margin_top_30" > 
+                                        <input class="contactus" type="file" id="archivo" name="archivo" accept='image/*' required>
+                                    </div>    
+                                    <div class="col-sm-12 center margin_top_30" >
                                             <button type="submit" class="send" name="subir" id="subir" value="Subir Archivo" >Actualizar imagen</button>
-                                        </div>
-                                    </form>
-
-                                    <form action="php/subir-descripcion.php" method="POST" name="area_texto">                                    
-                                        <div class="col-sm-12">
-                                            <textarea class="textarea" type="text" id="descripcion" name="descripcion" maxlength="200" ><?php echo $usuario['detalle']?></textarea>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <button type="submit" class="send" name="subir" id="subir" value="Subir Archivo" >Actualizar descripcion</button>
-                                        </div>
-                                    </form>
-                                </div>
+                                    </div>
+                                </form>
+                                <form action="php/subir-descripcion.php" method="POST" name="area_texto">                                    
+                                    <div class="col-sm-12">
+                                        <textarea class="textarea" type="text" id="descripcion" name="descripcion" maxlength="200" ><?php echo $usuario['detalle']?></textarea>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <button type="submit" class="send" name="subir" id="subir" value="Subir Archivo" >Actualizar descripcion</button>
+                                    </div>
+                                </form>
+                            </div> -->
                         </div>         
                     </div>
                     <a href="Editar perfil"></a>    
@@ -213,11 +221,11 @@
             },
             success: function(data)
                 {
-                    if(data=='Foto actualizada')
+                    if(data!='No hay cambios')
                     {
                         Swal.fire({
                             'title': 'Hecho!',
-                            'text': "Imagen Actualizada", //y el motivo que imprime es la respuesta del archivo "Usuario registrado"
+                            'text': data, //y el motivo que imprime es la respuesta del archivo "Usuario registrado"
                             'type': 'success'
                             }).then(function(result){
                                 window.location = "editar-perfil.php"; //Despues redirecciona a index.html
