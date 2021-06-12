@@ -76,7 +76,13 @@
                             <div class="limit-box">
                                 <nav class="main-menu">
                                     <ul class="menu-area-main">
-                                        <li> <a href="#">Reportes</a> </li>
+                                        <li> <a href="#">Reportes <span class = "circulo"><?php 
+                                                require "php/conexion.php";
+                                                $count= "SELECT COUNT(*) FROM reporte ";
+                                                $result= mysqli_query($conexion,$count);
+                                                $num= mysqli_fetch_array($result);
+                                                echo $num[0];
+                                        ?> </span></a> </li>
                                         <li> <a href="php/logout.php">Logout</a> </li>
                                     </ul>
                                 </nav>
@@ -94,15 +100,14 @@
             <!-- end header inner -->
     </header>
     <!-- end header -->
-    <section class="banner_section">
+   <section class="banner_section">
         <div class="banner-main">
             <img src="img/banner2.jpg" />
             <div class="container">
 
                 <div class="text-bg relative">
-                    <h1>LEGACY<br><span class="Perfect"> Tu Musica Favorita</span><br>Agrega Canciones Sin costo alguno!</h1>
+                    <h1>LEGACY<br><span class="Perfect">Tu Musica Favorita</span><br>Agrega Canciones Sin costo alguno!</h1>
                     <p>La mejor aplicacion donde lo posible es posible.</p>
-                    <a href="#">Ponte Legacy</a>
                 </div>
 
             </div>
@@ -114,20 +119,24 @@
     
     <div class="music-box">
         <div class="container">
-            <h2 class="center negritas">Escucha el contido de otros Creadores:</h2>
+            <h2 class="center negritas">Escucha el contenido de otros Creadores:</h2>
             <div class="row">
                 <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home"><img class ="dividir" src="icon/icon1.png" alt="icon"/><h3 class="center negritas">POP </h3></a></li>
+                <?php
+                      require "php/conexion.php";
+                      $Distinc= "SELECT DISTINCT genero FROM cancion";
+                      $result= mysqli_query($conexion,$Distinc);
+                      while($row = mysqli_fetch_array($result))
+                           { 
+                             if($row['genero']!= "Pop"){
+                      ?>
                     
-                    <li class="active"><a data-toggle="tab" href="#home"><img class ="dividir" src="icon/icon1.png" alt="icon"/><h3 class="center negritas">POP</h3></a></li>
-                    <li><a data-toggle="tab" href="#menu1"><img class ="dividir" src="icon/icon1.png" alt="icon"/></a><h3 class="center negritas">ROCK</h3></a></li>
-                    <li><a data-toggle="tab" href="#menu2"><img class ="dividir" src="icon/icon1.png" alt="icon"/></a><h3 class="center negritas">RAP</h3></a></li>
-                    <li><a data-toggle="tab" href="#menu3"><img class ="dividir" src="icon/icon1.png" alt="icon"/></a><h3 class="center negritas">REGGAE</h3></a></li>
-                    <li><a data-toggle="tab" href="#menu3"><img class ="dividir" src="icon/icon1.png" alt="icon"/></a><h3 class="center negritas">HIP-HOP</h3></a></li>
-                    <li><a data-toggle="tab" href="#menu3"><img class ="dividir" src="icon/icon1.png" alt="icon"/></a><h3 class="center negritas">TRAP</h3></a></li>
-                    <li><a data-toggle="tab" href="#menu3"><img class ="dividir" src="icon/icon1.png" alt="icon"/></a><h3 class="center negritas">SALSA</h3></a></li>
-                    <li><a data-toggle="tab" href="#menu3"><img class ="dividir" src="icon/icon1.png" alt="icon"/></a><h3 class="center negritas">ELECTRONICA</h3></a></li>
-
-
+                    <li class=><a data-toggle="tab" href="#<?php echo $row['genero']?> "><img class ="dividir" src="icon/icon1.png" alt="icon"/><h3 class="center negritas"><?php echo $row['genero']?> </h3></a></li>
+                <?php
+                    }// se cierra el if 
+                }//se cierra el while
+                ?>
                 </ul>
                 
               
@@ -140,130 +149,67 @@
                                     <td><p>Artista</p></td>
                                     <td><p>Cancion</p></td>
                                     <td class = "center"><p>Reproducir</p></td>
-                                    <td></td>
-                                    <td width = "200px"></td>
                                 </tr>
                                 <tr>
-                                    <td class="center">Yung Bae</td>
-                                    <td class="center">I´m Willing</td>
-                                    <td class="display"><audio class="margin-reproductor"src="YUNG BAE - Bae - 05 I'm Willing (w-tuuwa).mp3" preload="none" controls></audio></td>
-                                    <td><a data-toggle="tab" href="#"><img class ="dividir" src="icon/prohibido.png" alt="icon" width="30px"/></a></td>
-                                    <td >
-                                        <select class="selectpicker display">
-                                            <option value="">Agregar Playlist</option>
-                                            <option value="1">PlayList 1</option>
-                                            <option value="2">Playlist 2</option>
-                                            <option value="3">Playlist 3</option>
-                                        </select>
-                                       
-                                    </td>
+
+                                <?php
+                            
+                                $consulta= "SELECT * FROM cancion";
+                                $resultado= mysqli_query($conexion,$consulta);
+                               
+                                while($data = mysqli_fetch_array($resultado))
+                                { 
+                                if($data['genero']=="Pop"){
+                                     ?>
+                                    <td class="center"></td>
+                                    <td class="center"><?php echo $data['titulo']?></td>
+                                    <td class="display"><audio class="margin-reproductor"src="musica/<?php echo $data["titulo"];?>" preload="none" controls></audio></td>
                                 </tr>
-                                <tr>
-                                    <td class="center">MGMT</td>
-                                    <td class="center">Kids</td>
-                                    <td class="display"><audio class="margin-reproductor"src="KIDS.mp3" preload="none" controls></audio></td>
-                                    <td><a data-toggle="tab" href="#"><img class ="dividir" src="icon/prohibido.png" alt="icon" width="30px"/></a></td>
-                                    <td >
-                                        <select class="selectpicker display">
-                                            <option value="">Agregar Playlist</option>
-                                            <option value="1">PlayList 1</option>
-                                            <option value="2">Playlist 2</option>
-                                            <option value="3">Playlist 3</option>
-                                        </select>
-                                       
-                                    </td>
-                                </tr>
+                                <?php
+                               }
+                             }
+                        ?>
                             </table>
                         </div>
                         <!-- FIN SECCION POP-->
                         
-                        <!-- SECCION ROCK-->
-                        <div id="menu1" class="tab-pane fade Scroll">
+                        <!-- las demas secciones-->
+                        <?php
+                            $Distinc= "SELECT DISTINCT genero FROM cancion";
+                            $result= mysqli_query($conexion,$Distinc);
+                         while($row = mysqli_fetch_array($result))
+                           { 
+                             if($row['genero']!= "Pop"){
+                      ?>
+                        <div id="<?php echo $row['genero'];?>" class="tab-pane fade Scroll">
                             <table class="display margin_top_30 ">
                                 <tr>
                                     <td><p>Artista</p></td>
                                     <td><p>Cancion</p></td>
                                     <td class = "center"><p>Reproducir</p></td>
-                                    <td></td>
-                                    <td width = "200px"></td>
                                 </tr>
                                 <tr>
-                                    <td class="center">Yung Bae</td>
-                                    <td class="center">I´m Willing</td>
-                                    <td class="display"><audio class="margin-reproductor"src="YUNG BAE - Bae - 05 I'm Willing (w-tuuwa).mp3" preload="none" controls></audio></td>
-                                    <td><a data-toggle="tab" href="#"><img class ="dividir" src="icon/prohibido.png" alt="icon" width="30px"/></a></td>
-                                    <td>
-                                        <select class="selectpicker display">
-                                            <option value="">Agregar Playlist</option>
-                                            <option value="1">PlayList 1</option>
-                                            <option value="2">Playlist 2</option>
-                                            <option value="3">Playlist 3</option>
-                                        </select>
-                                       
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <!-- FIN SECCION ROCK-->
 
-                        <!-- SECCION RAP -->
-                        <div id="menu2" class="tab-pane fade Scroll">
-                            <table class="display margin_top_30 ">
-                                <tr>
-                                    <td><p>Artista</p></td>
-                                    <td><p>Cancion</p></td>
-                                    <td class = "center"><p>Reproducir</p></td>
-                                    <td></td>
-                                    <td width = "200px"></td>
+                                <?php    
+                                    $consulta= "SELECT * FROM cancion";
+                                    $resultado= mysqli_query($conexion,$consulta);
+                                while($data = mysqli_fetch_array($resultado)){ 
+                                    if($data['genero']==$row['genero']){
+                                ?>
+                                    <td class="center"></td>
+                                    <td class="center"><?php echo $data['titulo']?></td>
+                                    <td class="display"><audio class="margin-reproductor"src="musica/<?php echo $data["titulo"];?>"  preload="none" controls></audio></td>
                                 </tr>
-                                <tr>
-                                    <td class="center">Yung Bae</td>
-                                    <td class="center">I´m Willing</td>
-                                    <td class="display"><audio class="margin-reproductor"src="YUNG BAE - Bae - 05 I'm Willing (w-tuuwa).mp3" preload="none" controls></audio></td>
-                                    <td><a data-toggle="tab" href="#"><img class ="dividir" src="icon/prohibido.png" alt="icon" width="30px"/></a></td>
-                                    <td>
-                                        <select class="selectpicker display">
-                                            <option value="">Agregar Playlist</option>
-                                            <option value="1">PlayList 1</option>
-                                            <option value="2">Playlist 2</option>
-                                            <option value="3">Playlist 3</option>
-                                        </select>
-                                       
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <!-- FIN SECCION RAP -->
+                                <?php
+                               }
+                             }?>
 
-                        <!-- SECCION REGGAE -->
-                        <div id="menu3" class="tab-pane fade Scroll">
-                            <table class="display margin_top_30 ">
-                                <tr>
-                                    <td><p>Artista</p></td>
-                                    <td><p>Cancion</p></td>
-                                    <td class = "center"><p>Reproducir</p></td>
-                                    <td></td>
-                                    <td width = "200px"></td>
-                                </tr>
-                                <tr>
-                                    <td class="center">Yung Bae</td>
-                                    <td class="center">I´m Willing</td>
-                                    <td class="display"><audio class="margin-reproductor"src="YUNG BAE - Bae - 05 I'm Willing (w-tuuwa).mp3" preload="none" controls></audio></td>
-                                    <td><a data-toggle="tab" href="#"><img class ="dividir" src="icon/prohibido.png" alt="icon" width="30px"/></a></td>
-                                    <td >
-                                        <select class="selectpicker display">
-                                            <option value="">Agregar Playlist</option>
-                                            <option value="1">PlayList 1</option>
-                                            <option value="2">Playlist 2</option>
-                                            <option value="3">Playlist 3</option>
-                                        </select>
-                                       
-                                    </td>
-                                </tr>
                             </table>
                         </div>
-                        <!-- FIN SECCION REGGAE -->
-  
+                        <?php
+                             } // fin de if row
+                            } //fin del while  row
+                        ?>
                </div>
         </div>
     </div>
@@ -331,11 +277,11 @@
     <script src="js/custom.js"></script>
     <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+        
 </body>
 
 </html>
