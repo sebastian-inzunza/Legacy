@@ -128,27 +128,25 @@
                 <div class="tab-content table-dark"> <!-- Esto vamos a sacamr con un while de la base de datos-->
                         <div id="home" class="tab-pane fade in active Scroll">
                             <table class="display margin_top_30 ">
-                            <form class="display">
-                                <div class="col-sm-12 margin_top_30">
-                                    <select class=" display contactus">
-                                        <option value="Motivo">Motivo</option>                                                   
-                                        <option value="Mal_audio">Mal audio</option>
-                                        <option value="Explicito">Demasiado explicito</option>
-                                        <option value="Derechos">Derechos de autor</option>
-                                        <option value="alegoria">alegoria al suicidio</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-12">
-                                    <textarea class="textarea" placeholder="Message" type="text" name="Message"></textarea>
-                                </div>
-                                <div class="col-sm-12 center margin_top_30">
-                                    <button class="send">Send</button>
-                                </div>
-
-
-                            </form>
-                                
-         
+                                <form class="display">
+                                    <form action="php/subir-reporte.php" method="POST">
+                                        <div class="col-sm-12 margin_top_30">
+                                            <select class=" display contactus" name="tipo" type="text" required>
+                                                <option value="Motivo">Motivo</option>                                                   
+                                                <option value="Mal_audio">Mal audio</option>
+                                                <option value="Explicito">Demasiado explicito</option>
+                                                <option value="Derechos">Derechos de autor</option>
+                                                <option value="alegoria">Alegoria al suicidio</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <textarea class="textarea" required placeholder="Mensaje" type="text" name="rason"></textarea>
+                                        </div>
+                                        <div class="col-sm-12 center margin_top_30">
+                                            <button type="submit" class="send" name="subir" id="subir" value="Subir Reporte" >Subir reporte</button>
+                                        </div>
+                                    </form>
+                                </form>
                             </table>
                         </div>    
                </div>
