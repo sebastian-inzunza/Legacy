@@ -75,7 +75,7 @@ session_destroy();
                             'text': data,  ///aca muestra el motivo, data es la respuesta que nos retorna login.php
                             'type': 'error'
                             }).then(function(result){
-                                window.location = "index.html";
+                                window.location = "index.php";
                             })
                         }
                     },

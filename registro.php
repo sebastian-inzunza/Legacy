@@ -31,7 +31,7 @@
                     <input type="password" id="password" class="fadeIn second" name="password" placeholder="Contraseña" required>
                     <input type="password" id="password2" class="fadeIn second" name="password2" placeholder="Confirmar Contraseña" required>
                         <div class="Add">
-                            <p class="font-16px">¿Ya tienes Cuenta? <a class="underlineHover" href="index.html" >Iniciar Sesion</a></p>
+                            <p class="font-16px">¿Ya tienes Cuenta? <a class="underlineHover" href="index.php" >Iniciar Sesion</a></p>
                         </div>
                     <!-- Este es el boton, si es presionado mandara todo los campos de entrada al archivo register.php-->
                     <input type="submit" class="fadeIn fourth" id ="register" value="Registrate">
@@ -66,7 +66,7 @@
                                 'text': data, //y el motivo que imprime es la respuesta del archivo "Usuario registrado"
                                 'type': 'success'
                                 }).then(function(result){
-                                    window.location = "index.html"; //Despues redirecciona a index.html
+                                    window.location = "index.php"; //Despues redirecciona a index.php
                                  })
                             }
                         else{ /// si la respuesta del archivo es otra entrara aca

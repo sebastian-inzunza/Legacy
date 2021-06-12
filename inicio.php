@@ -90,7 +90,7 @@
                     <form action="buscando.php" method="post" class="search">
                             <input class="form-control" type="text" placeholder="Buscar..." name="buscador">
                             <button><img src="img/search_icon.png" href="buscando.php"></button>
-                        </form>
+                    </form>
                     </div>
                 </div>
             </div>
