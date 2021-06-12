@@ -34,12 +34,12 @@
                 if(file_exists($eliminar)){
                     unlink($eliminar);
                     echo"Se Actualizo foto ";
-               }
-               else{
+                }
+                else{
                     echo"Se Actualizo foto ";
-               }
-               }else
-               {
+                }
+                }else
+                {
                    echo'Problema con fichero';
                }
                 //}

@@ -73,7 +73,9 @@
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section">
                         <div class="full">
                             <div class="center-desk">
-                            <?php foreach($_SESSION['usuario'] as $indice => $usuario){?>
+                            <?php 
+                            $titulo = $_POST['titulo'];
+                            foreach($_SESSION['usuario'] as $indice => $usuario){?>
                                 <div class="logo menu-area-main">
                                     <li><a href="inicio.php"><img src="img/Legacy-Logo.jpg" width="85px" alt="logo"/></a></li>
                                     <spam class = "user">Nickname: <?php echo $usuario['NOMBRE'];?></spam>
@@ -115,23 +117,24 @@
 
                 <div class="text-bg relative">
                 <p><br><span class="Perfect2">¡Hola <?php echo $usuario['NOMBRE']?>!</span><br></p>
-                    <h2>¿Algún contenido no te gustó, escuchaste algo mal?</h2>
-                    <p><span class="Perfect1">Reporta las incidencias en el siguiente formato</span></p>
+                    <h2>¿Este cancion te parecio inapropiada?</h2>
+                    <p><span class="Perfect1">Los reportes que realices seran atendidos por un administrador</span></p>
                 </div>
             </div>   
         </div>
     </section>
-    <?php }?>
+    
     <div class="music-box">
         <div class="container">
-            <h2 class="center negritas">Reportar</h2>
+            <h2 class="center negritas">Reportar: <?php echo $titulo; ?></h2>
                 <div class="tab-content table-dark"> <!-- Esto vamos a sacamr con un while de la base de datos-->
                         <div id="home" class="tab-pane fade in active Scroll">
                             <table class="display margin_top_30 ">
-                                <form class="display">
                                     <form action="php/subir-reporte.php" method="POST">
+                                        <input type="hidden" id="idUsuario" name="idUsuario" value="<?php echo $usuario['ID']?>">
+                                        <input type="hidden" id="titulo" name="titulo" value="<?php echo $titulo;?>">
                                         <div class="col-sm-12 margin_top_30">
-                                            <select class=" display contactus" name="tipo" type="text" required>
+                                            <select class=" display contactus" id="tipo" name="tipo" type="text" required>
                                                 <option value="Motivo">Motivo</option>                                                   
                                                 <option value="Mal_audio">Mal audio</option>
                                                 <option value="Explicito">Demasiado explicito</option>
@@ -140,13 +143,12 @@
                                             </select>
                                         </div>
                                         <div class="col-sm-12">
-                                            <textarea class="textarea" required placeholder="Mensaje" type="text" name="rason"></textarea>
+                                            <textarea class="textarea" required placeholder="Mensaje" type="text"  id="razon" name="razon"></textarea>
                                         </div>
                                         <div class="col-sm-12 center margin_top_30">
-                                            <button type="submit" class="send" name="subir" id="subir" value="Subir Reporte" >Subir reporte</button>
+                                            <button type="submit" class="send" name="reportar" id="reportar">Reportar</button>
                                         </div>
                                     </form>
-                                </form>
                             </table>
                         </div>    
                </div>
@@ -158,7 +160,7 @@
     </div>
 </div>
     <!-- music-box  --> 
-
+    <?php }?>
     <!--  footer -->
     <footr id="footer_with_contact">
         <div class="footer">
@@ -223,9 +225,59 @@
     <script src="js/custom.js"></script>
     <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#reportar').click(function(e){
+
+			var valid = this.form.checkValidity(); //Valida que los campos de entrada en el form de arriba no esten vacios
+
+			if(valid){//Si todos los campos tienen los datos se cumple la condicion
+			var idUsuario = $('#idUsuario').val();// a la variable nombre le asigna el campo escrito en el <input> con id = "nombre" ejemplo en linea de codigo 27
+			var titulo = $('#titulo').val();
+			var tipo = $('#tipo').val();
+			var razon = $('#razon').val();
+				e.preventDefault();	
+				$.ajax({
+					type: 'POST', //metodo POST que usa php
+					url: 'php/subir-reporte.php', // se manda a llamar el archivo que hace la parte funcional
+					data: {idUsuario: idUsuario, titulo: titulo, tipo: tipo, razon: razon},
+					success: function(data){//entra aca si el archivo login.php da una respuesta
+                    if(data == "Reporte enviado"){ ///Si la respuesta del archivo es "Usuario registrado"
+                        //muestra una alerta tipo Success
+                            Swal.fire({
+                                'title': 'Hecho!',
+                                'text': data, //y el motivo que imprime es la respuesta del archivo "Usuario registrado"
+                                'type': 'success'
+                                }).then(function(result){
+                                    window.location = "inicio.php"; //Despues redirecciona a index.php
+                                 })
+                            }
+                        else{ /// si la respuesta del archivo es otra entrara aca
+                            ///Muestra una alerta de tipo error 
+                            Swal.fire({ 
+                                'title': 'Error',
+                                'text': data, //y aca Imprime  error especifico o la respuesta de nuestro archivo php
+                                'type': 'error'
+                                })
+                        }		
+					},
+					error: function(data){ ///Entra aca si el archivo no da respueta 
+					Swal.fire({
+							'title': 'Errors',
+							'text': 'Hubo un problema mientras se hacia el registro.',
+							'type': 'error'
+							})
+					}
+				});
+			}
+		});		
+	});
+	
+</script>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
 
 </body>
