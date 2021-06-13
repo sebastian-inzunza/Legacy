@@ -146,7 +146,7 @@
                                     <td class="display"><audio class="margin-reproductor"src='musica/<?php echo $row["titulo"];?>' id='song_<?php echo $row['id'];?>' preload="none" controls></audio></td>                               
                                     <input type="hidden" name="id" value="<?php echo $row['id'];?>">
                                     <input type="hidden" name="archivo2" id="archivo2" value="<?php echo $row['titulo'];?>">
-                                    <td><button data-id='<?php echo $row['id'];?>' type="submit" class="btn-padding"><img  src="icon/boton-x.png" alt="icon" width="30px"></button></td>
+                                    <td><button data-id='<?php echo $row['id'];?>' id="boton" type="submit" class="btn-padding"><img  src="icon/boton-x.png" alt="icon" width="30px"></button></td>
                                     <td >
                                         <select class="selectpicker display">
                                             <option value="">Agregar Playlist</option>
@@ -329,7 +329,7 @@
             });
         }));
 
-        $('.song button').click(function(){
+        $('.song #boton').click(function(){
             var id = $(this).data('id');
             // Selecting image source
             var songElement_src = $('#song_'+id).attr("src");

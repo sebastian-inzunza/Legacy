@@ -75,6 +75,7 @@
                             <div class="center-desk">
                             <?php 
                             $titulo = $_POST['titulo'];
+                            $idCancion = $_POST['idCancion'];
                             foreach($_SESSION['usuario'] as $indice => $usuario){?>
                                 <div class="logo menu-area-main">
                                     <li><a href="inicio.php"><img src="img/Legacy-Logo.jpg" width="85px" alt="logo"/></a></li>
@@ -133,6 +134,7 @@
                                     <form action="php/subir-reporte.php" method="POST">
                                         <input type="hidden" id="idUsuario" name="idUsuario" value="<?php echo $usuario['ID']?>">
                                         <input type="hidden" id="titulo" name="titulo" value="<?php echo $titulo;?>">
+                                        <input type="hidden" id="cancion" name="cancion" value="<?php echo $idCancion;?>">                                      
                                         <div class="col-sm-12 margin_top_30">
                                             <select class=" display contactus" id="tipo" name="tipo" type="text" required>
                                                 <option value="Motivo">Motivo</option>                                                   
@@ -238,11 +240,12 @@
 			var titulo = $('#titulo').val();
 			var tipo = $('#tipo').val();
 			var razon = $('#razon').val();
+            var cancion = $('#cancion').val();
 				e.preventDefault();	
 				$.ajax({
 					type: 'POST', //metodo POST que usa php
 					url: 'php/subir-reporte.php', // se manda a llamar el archivo que hace la parte funcional
-					data: {idUsuario: idUsuario, titulo: titulo, tipo: tipo, razon: razon},
+					data: {idUsuario: idUsuario, titulo: titulo, tipo: tipo, razon: razon, cancion: cancion},
 					success: function(data){//entra aca si el archivo login.php da una respuesta
                     if(data == "Reporte enviado"){ ///Si la respuesta del archivo es "Usuario registrado"
                         //muestra una alerta tipo Success
