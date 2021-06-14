@@ -106,8 +106,8 @@
                         <div class="col">
                             <h2 class= "">Bienvenido: <?php echo $usuario['NOMBRE']?></h2>
                             <span> Total de canciones subidas: </span>
-                            <span><br>Total de playlist:</br> </span>
-                            <span>Total de reportes: </span>
+                            <!--<span><br>Total de playlist:</br> </span>
+                            <span>Total de reportes: </span> -->
                             <br><a href="editar-perfil.php">Editar perfil</a></br>
                         </div>                
 
