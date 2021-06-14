@@ -108,13 +108,13 @@
                             <h2 >Bienvenido: <?php echo $usuario['NOMBRE'];?></h2>
                             <p>Correo: <?php echo $usuario['EMAIL'];?>  </p>
 
-                            <form action="">
-                            <input class="contactus-perfil" type="text" placeholder="Escribe tu nombre: ">
-                            <input class="contactus-perfil" type="text" placeholder="Escribe tu contraseña: ">
-                            <input class="contactus-perfil" type="text" placeholder="Conftima tu contraseña: ">
-                            <br>
-                            <button type="submit" class="send" name="actualizar"  value="Subir Archivo" >Actualizar</button>
-                            </br>
+                            <form action="php/actualizar-nombre_contrasena.php" method="POST" >
+                                <input class="contactus-perfil" type="text" name="nombre" placeholder="Escribe tu nuevo nombre: ">
+                                <input class="contactus-perfil" type="text" name="contrasena1" placeholder="Escribe tu nueva contraseña: ">
+                                <input class="contactus-perfil" type="text" name="contrasena2" placeholder="Conftima tu nueva contraseña: ">
+                                <br>
+                                    <button type="submit" class="send" name="actualizar"  value="actualizar" >Actualizar</button>
+                                </br>
                             </form>
                         </div>                
                         <div class="col display">
