@@ -6,7 +6,7 @@
         echo '
         <script>
             alert("Por favor debes iniciar session");
-            window.location ="index.html";
+            window.location ="index.php";
             </script>
         ';
         session_destroy();
@@ -228,7 +228,7 @@
                             'text': data, //y el motivo que imprime es la respuesta del archivo "Usuario registrado"
                             'type': 'success'
                             }).then(function(result){
-                                window.location = "editar-perfil.php"; //Despues redirecciona a index.html
+                                window.location = "editar-perfil.php"; //Despues redirecciona a index.php
                             })
                     }
                     else

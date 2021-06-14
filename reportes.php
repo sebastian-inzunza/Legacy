@@ -173,7 +173,7 @@ $(document).ready(function (){
                         'Reporte eliminado',
                         'success'
                     ).then(function(result){
-                        window.location = "reportes.php"; //Despues redirecciona a index.html
+                        window.location = "reportes.php"; //Despues redirecciona a index.php
                      })
 
                     }else{
@@ -203,7 +203,7 @@ $(document).ready(function (){
                         'Cancion eliminada',
                         'success'
                     ).then(function(result){
-                        window.location = "reportes.php"; //Despues redirecciona a index.html
+                        window.location = "reportes.php"; //Despues redirecciona a index.php
                      })
 
                     }else{
