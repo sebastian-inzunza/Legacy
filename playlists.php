@@ -18,12 +18,17 @@
 <head>
     <style type="text/css">
         .my-custom-scrollbar {
-        position: relative;
-        height: 300px;
-        overflow: auto;
+            position: relative;
+            height: 300px;
+            overflow: auto;
         }
         .table-wrapper-scroll-y {
-        display: block;
+            display: block;
+        }
+        .list-group2{
+            max-height: 300px;
+            overflow-y:scroll;
+            -webkit-overflow-scrolling: touch;
         }
     </style>
     <!-- basic -->
@@ -53,16 +58,16 @@
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-</head>
+    </head>
 <!-- body -->
 
 <body class="main-layout">
  
-    <!-- loader --> 
+    <!-- loader 
     <div class="loader_bg">
         <div class="loader"><img src="img/disc.gif" alt="#" /></div>
     </div>
-    
+    --> 
     <!-- end loader -->
     <!-- header -->
     <header>
@@ -77,7 +82,8 @@
                                 <div class="logo menu-area-main">
                                     <li><a href="inicio.php"><img src="img/Legacy-Logo.jpg" width="85px" alt="logo"/></a></li>
                                     <spam class = "user">Nickname: <?php echo $usuario['NOMBRE'];?></spam>
-                                </div>         
+                                </div>
+                                <?php }?>
                             </div>
                         </div>
                     </div>
@@ -121,85 +127,47 @@
             </div>   
         </div>
     </section>
-    <?php } ?>
-    <div class="container">
         
+<div class="container">
+    <div class="myDivElement">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home"><h3 class="center negritas ">Mis playlist</h3></a></li>
+            <li><a href="playlist-crear.php" target="_blank" onClick="window.open(this.href, this.target, 
+            'width=400,height=400,left='+parseInt(window.innerWidth - 83)+',top=50, resizable=no'); return false;" 
+            href="playlistC.php"><h3 class="center negritas">Crear playlist</h3></a></li>
+        </ul>
     </div>
-    <div class="container">
-    <p><h2 class="center">Playlist: 'Nombre'</h2></p>
-    <div class="table-wrapper-scroll-y my-custom-scrollbar">
-    <table class="table table-striped table-dark table-hover table-sm">
-        <thead>
-            <tr>
-            <th scope="col">#</th>
-            <th scope="col">Titulo</th>
-            <th scope="col">Autor</th>
-            <th scope="col">Género</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-	            <td><?php echo 'Titulo1'?></td>
-                <td><?php echo 'Autor1' ?></td>
-                <td><?php echo 'Género1' ?></td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-	            <td><?php echo 'Titulo2'?></td>
-                <td><?php echo 'Autor2' ?></td>
-                <td><?php echo 'Género2' ?></td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-	            <td><?php echo 'Titulo3'?></td>
-                <td><?php echo 'Autor3' ?></td>
-                <td><?php echo 'Género3' ?></td>
-                
-            </tr>
-            <tr>
-                <th scope="row">4</th>
-	            <td><?php echo 'Titulo4'?></td>
-                <td><?php echo 'Autor4' ?></td>
-                <td><?php echo 'Género4' ?></td>
-            </tr>
-            <tr>
-                <th scope="row">5</th>
-	            <td><?php echo 'Titulo5'?></td>
-                <td><?php echo 'Autor5' ?></td>
-                <td><?php echo 'Género5' ?></td>
-            </tr>
-            <tr>
-                <th scope="row">6</th>
-	            <td><?php echo 'Titulo6'?></td>
-                <td><?php echo 'Autor6' ?></td>
-                <td><?php echo 'Género6' ?></td>
-                
-            </tr>
-            <tr>
-                <th scope="row">7</th>
-	            <td><?php echo 'Titulo7'?></td>
-                <td><?php echo 'Autor7' ?></td>
-                <td><?php echo 'Género7' ?></td>
-            </tr>
-            <tr>
-                <th scope="row">8</th>
-	            <td><?php echo 'Titulo8'?></td>
-                <td><?php echo 'Autor8' ?></td>
-                <td><?php echo 'Género8' ?></td>
-            </tr>
-            <tr>
-                <th scope="row">9</th>
-	            <td><?php echo 'Titulo9'?></td>
-                <td><?php echo 'Autor9' ?></td>
-                <td><?php echo 'Género9' ?></td>
-                
-            </tr>
-        </tbody>
-    </table>
+    <div id="home" class="">
+        <p><h3 class="center">Tus Playlist creadas</h3></p>
+        <div class="row">
+            <div class="col-4">
+                <div class="list-group list-group2" id="list-tab" role="tablist">
+                <?php
+                    include 'php/conexion.php';
+                    $i = 1;
+                    $query=mysqli_query($conexion, "SELECT * FROM playlist WHERE idUsuario='" . $usuario[ "ID" ] . "'");
+                    while($row = mysqli_fetch_array($query)) {
+                        $id = $row['id'];
+                ?>
+                    <a class="list-group-item list-group-item-action text-center" id="" data-toggle="list" href="#<?php echo $id?>" role="tab" aria-controls="home"><?php echo $row['titulo'] ?></a>
+                <?php $i++; };// se cierra el while
+                ?> <!-- se cierra el foreach-->
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="1" role="tabpanel" aria-labelledby="list-home-list"><p><h3>ffjdjskiwnfhv dc nks<h3></p></div>
+                    <div class="tab-pane fade" id="9" role="tabpanel" aria-labelledby="list-profile-list"><p><h3>esto es de la playlist id 9<h3></p></div>
+                    <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
+                    <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
     <!-- music-box  --> 
+    
     <div class="music-box">
         <div class="container">
             <h2 class="center negritas">Reproductor</h2>
@@ -367,16 +335,16 @@
                         <div class="address">
                             <h3>Legacy</h3>
                             <div class="row">
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 ">
+                                <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6 ">
                                     <figure><img src="img/Legacy-Logo.jpg"/></figure>
                                 </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 ">
+                                <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6 ">
                                     <figure><img src="img/Huevo-Pascua.jpg" /></figure>
                                 </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 ">
+                                <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6 ">
                                     <figure><img src="img/music3.jpg" /></figure>
                                 </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 ">
+                                <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6 ">
                                     <figure><img src="img/music4.jpg" /></figure>
                                 </div>
                             </div>
@@ -406,7 +374,7 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
-    
+
 </body>
 
 </html>
