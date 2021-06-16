@@ -27,12 +27,12 @@
                'EMAIL'=>$todo['email'],
             );
          $_SESSION['usuario'][0]=$usuario;    //iniciamos la sesion
-         echo '1'; //el archivo responde con 1 al ajax el cual se encuentra en index.html y nos resdirecciona a inicio.php
+         echo '1'; //el archivo responde con 1 al ajax el cual se encuentra en index.php y nos resdirecciona a inicio.php
          exit();
         }
     } elseif (mysqli_num_rows($validar_login_admin) > 0) {
         $_SESSION['nombre'] = $nombre;
-        echo '2';//el archivo responde con 1 al ajax el cual se encuentra en index.html y nos resdirecciona a inicio-admin.php
+        echo '2';//el archivo responde con 1 al ajax el cual se encuentra en index.php y nos resdirecciona a inicio-admin.php
         exit();
     }
     else{ /// si no encuentra un usuario en el coicida nombre y contraseña

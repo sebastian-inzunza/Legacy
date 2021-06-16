@@ -5,7 +5,7 @@
         echo '
         <script>
             alert("Por favor debes iniciar session");
-            window.location ="index.html";
+            window.location ="index.php";
             </script>
         ';
         session_destroy();
@@ -65,35 +65,46 @@
                         <div class="full">
                             <div class="center-desk">
                                 <div class="logo">
-                                    <a href="inicio-admin.html"><img src="img/Legacy-Logo.jpg" width="85px" alt="logo"/></a>
-                                    <spam class = "user">Nickname: <?php echo $_SESSION['nombre']?></spam>
+                                    <a href="inicio-admin.php"><img src="img/Legacy-Logo.jpg" width="85px" alt="logo"/></a>
+                                    <spam class = "user">Administrador</spam>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <?php
+                     require "php/conexion.php";
+                     $count= "SELECT COUNT(*) FROM reporte ";
+                     $result= mysqli_query($conexion,$count);
+                     $num= mysqli_fetch_array($result);
+                    ?>
                     <div class="col-xl-8 col-lg-8 col-md-10 col-sm-10">
                         <div class="menu-area">
                             <div class="limit-box">
                                 <nav class="main-menu">
                                     <ul class="menu-area-main">
-                                        <li> <a href="#">Reportes <span class = "circulo"><?php 
-                                                require "php/conexion.php";
-                                                $count= "SELECT COUNT(*) FROM reporte ";
-                                                $result= mysqli_query($conexion,$count);
-                                                $num= mysqli_fetch_array($result);
-                                                echo $num[0];
-                                        ?> </span></a> </li>
+                                        <?php
+                                            if($num[0]>0){
+                                        ?>
+                                        <li> <a href="reportes.php">Reportes <span class = "circulo"><?php 
+                                            echo $num[0];
+                                        ?> </span></a> </li> 
+                                        
+                                        <?php
+                                            }else{ 
+                                        ?>
+                                         <li> <a href="#">Reportes <span class = "circulo"><?php 
+                                            echo $num[0];
+                                        ?> </span></a> </li> 
+
+                                        <?php 
+                                          }
+                                        ?>
+                                        
                                         <li> <a href="php/logout.php">Logout</a> </li>
                                     </ul>
                                 </nav>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
-                        <form class="search">
-                            <input class="form-control" type="text" placeholder="Buscar...">
-                            <button><img src="img/search_icon.png"></button>
-                        </form>
                     </div>
                 </div>
             </div>

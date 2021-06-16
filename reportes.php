@@ -49,8 +49,8 @@
                         <div class="full">
                             <div class="center-desk">
                                 <div class="logo menu-area-main">
-                                    <li><a href="inicio.php"><img src="img/Legacy-Logo.jpg" width="85px" alt="logo"/></a></li>
-                                    <spam class = "user">Nickname:</spam>
+                                    <li><a href="inicio-admin.php"><img src="img/Legacy-Logo.jpg" width="85px" alt="logo"/></a></li>
+                                    <spam class = "user">Administrador</spam>
                                 </div>          
                             </div>
                         </div>
@@ -60,21 +60,19 @@
                             <div class="limit-box">
                                 <nav class="main-menu">
                                     <ul class="menu-area-main">
-                                        <li> <a href="subir-cancion.php">Mis Canciones</a> </li>
-                                        <li> <a href="playlists.php">Playlist</a> </li>
-                                        <li> <a href="perfil.php">Perfil</a> </li>
-                                        <li> <a href="php/logout.php">Logout</a> </li>
+                                    <li> <a href="reportes.php">Reportes <span class = "circulo"><?php 
+                                                require "php/conexion.php";
+                                                $count= "SELECT COUNT(*) FROM reporte ";
+                                                $result= mysqli_query($conexion,$count);
+                                                $num= mysqli_fetch_array($result);
+                                                echo $num[0];
+                                        ?> </span></a> </li>
+                                    <li> <a href="php/logout.php">Logout</a> </li>
                                     </ul>
                                 </nav>
                                 
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
-                        <form action="buscando.php" method="post" class="search">
-                            <input class="form-control" type="text" placeholder="Buscar..." name="buscador">
-                            <button><img src="img/search_icon.png" href="buscando.php"></button>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -122,9 +120,9 @@
                                  <div class="modal-body">
                                  <p class = "center rojo"> <?php echo $row['tipo']?></p>
                                  <br><h1 class = "center"> <?php echo $row['motivo']?></h1></br>
-                                 <p class="display"><audio class="margin-reproductor"src="musica/<?php echo $row["titulo"];?>" preload="none" controls></audio></p>
+                                 <p class="display"><audio class="margin-reproductor" id='song' src="musica/<?php echo $row["titulo"];?>" preload="none" controls></audio></p>
                                  <input type="hidden" name="id" id ="id" value="<?php echo $row['id']?>">
-
+                                 <input type="hidden" name="idCancion" id ="idCancion" value="<?php echo $row['idCancion']?>">
 
                                 </div>
                                 <div class="display">
@@ -175,7 +173,7 @@ $(document).ready(function (){
                         'Reporte eliminado',
                         'success'
                     ).then(function(result){
-                        window.location = "reportes.php"; //Despues redirecciona a index.html
+                        window.location = "reportes.php"; //Despues redirecciona a index.php
                      })
 
                     }else{
@@ -191,26 +189,27 @@ $(document).ready(function (){
 
         $('.form #boton2').click(function(){
             var id = $(this).data('id');
-            var songElement_src = $('#song_'+id).attr("src");
+            var songElement_src = $('#song').attr("src");
+            var idCancion = $('#idCancion').val();
 
             $.ajax({
-                url:'php/reportes2.php',
+                url:'php/reportes3.php',
                 type: 'POST',
-                data:{'id':id},
+                data:{'id':id, 'song':songElement_src, 'idCancion': idCancion},
                 success: function(data){
                     if(data == '1'){
                         Swal.fire(
                         'Buen trabajo!',
-                        'Reporte eliminado',
+                        'Cancion eliminada',
                         'success'
                     ).then(function(result){
-                        window.location = "reportes.php"; //Despues redirecciona a index.html
+                        window.location = "reportes.php"; //Despues redirecciona a index.php
                      })
 
                     }else{
                         Swal.fire(
-                        'Buen trabajo!',
-                        'Hubo un error en los datos',
+                        'Error!!',
+                        'Revisa los datos',
                         'error'
                     )
                     }

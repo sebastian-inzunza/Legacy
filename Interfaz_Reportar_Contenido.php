@@ -5,7 +5,7 @@
         echo '
         <script>
             alert("Por favor debes iniciar session");
-            window.location ="index.html";
+            window.location ="index.php";
             </script>
         ';
         session_destroy();
@@ -137,11 +137,11 @@
                                         <input type="hidden" id="cancion" name="cancion" value="<?php echo $idCancion;?>">                                      
                                         <div class="col-sm-12 margin_top_30">
                                             <select class=" display contactus" id="tipo" name="tipo" type="text" required>
-                                                <option value="Motivo">Motivo</option>                                                   
-                                                <option value="Mal_audio">Mal audio</option>
-                                                <option value="Explicito">Demasiado explicito</option>
-                                                <option value="Derechos">Derechos de autor</option>
-                                                <option value="alegoria">Alegoria al suicidio</option>
+                                                <option  hidden>Motivo</option>                                                   
+                                                <option value="Mal audio">Mal audio</option>
+                                                <option value="Demasiado explicito">Demasiado explicito</option>
+                                                <option value="Derechos de autor">Derechos de autor</option>
+                                                <option value="Alegoria al suicido">Alegoria al suicidio</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-12">

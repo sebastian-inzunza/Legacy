@@ -5,7 +5,7 @@
         echo '
         <script>
             alert("Por favor debes iniciar session");
-            window.location ="index.html";
+            window.location ="index.php";
             </script>
         ';
         session_destroy();
@@ -356,7 +356,7 @@
                                     'text': "Se elimino la cancion", //y el motivo que imprime es la respuesta del archivo "Usuario registrado"
                                     'type': 'warning'
                                     }).then(function(result){
-                                        window.location = "subir-cancion.php"; //Despues redirecciona a index.html
+                                        window.location = "subir-cancion.php"; //Despues redirecciona a index.php
                                     })
                             }
                             else{ /// si la respuesta del archivo es otra entrara aca

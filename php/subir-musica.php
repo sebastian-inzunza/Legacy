@@ -5,6 +5,7 @@ $archivo = "../musica/";
 $archivo .= $archivo.basename($_FILES['archivo']['name']); 
 $tipo_archivo = $_FILES['archivo']['type'];
 $genero =$_POST['genero'];
+
 if(move_uploaded_file($_FILES['archivo']['tmp_name'], $archivo)) 
 {
         foreach($_SESSION['usuario'] as $indice => $usuario){
@@ -15,7 +16,7 @@ if(move_uploaded_file($_FILES['archivo']['tmp_name'], $archivo))
               $ejecutar = mysqli_query($conexion, $query); ///mandamos la conexion junto al Insert
               if ($ejecutar) //Si lo hizo correctamente 
               {
-                  echo"Cancion subida"; //mandara este mensaje avisando que el registro fue hecho
+                  echo "Cancion subida"; //mandara este mensaje avisando que el registro fue hecho
               }
               else{
                 echo"El nombre de tu archivo es demasiado largo";
