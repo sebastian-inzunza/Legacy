@@ -108,12 +108,12 @@
                             <h2 >Bienvenido: <?php echo $usuario['NOMBRE'];?></h2>
                             <p>Correo: <?php echo $usuario['EMAIL'];?>  </p>
 
-                            <form action="php/actualizar-nombre_contrasena.php" method="POST" >
+                            <form action="php/actualizar-nombre_contrasena.php" method="POST" id="fupFormNombreContra">
                                 <input class="contactus-perfil" type="text" name="nombre" placeholder="Escribe tu nuevo nombre: ">
                                 <input class="contactus-perfil" type="text" name="contrasena1" placeholder="Escribe tu nueva contraseña: ">
                                 <input class="contactus-perfil" type="text" name="contrasena2" placeholder="Conftima tu nueva contraseña: ">
                                 <br>
-                                    <button type="submit" class="send" name="actualizar"  value="actualizar" >Actualizar</button>
+                                    <button type="submit" class="send" name="actualizar" id="subirDatos"  value="actualizar" >Actualizar</button>
                                 </br>
                             </form>
                         </div>                
@@ -203,10 +203,10 @@
 
     $(document).ready(function (e) {
         
-        $("#fupForm").on('submit',(function(e) { //Este valida Subir cancion 
+        $("#fupForm").on('submit',(function(e) { //Este valida Subir imagen 
         var btnEnviar =  $("#subir");
         var textoSubir = btnEnviar.text();
-        var textoSubiendo = "Cargando Cancion";
+        var textoSubiendo = "Cargando imagen";
         e.preventDefault();
         $.ajax({
             url: "php/subir-foto.php",
@@ -252,6 +252,61 @@
         }));
     });
     </script> 
+
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            $('#fupFormNombreContra').click(function(e){
+
+                var valid = this.form.checkValidity(); //Valida que los campos de entrada en el form de arriba no esten vacios
+
+                var btnEnviar =  $("#subirDatos");
+                var textoSubir = btnEnviar.text();
+                var textoSubiendo = "Cargando datos";
+                e.preventDefault();	
+                $.ajax({
+                    url: "php/actualizar-nombre_contrasena.php",
+                    type: "POST",
+                    data:  new FormData(this),
+                    contentType: false,
+                    cache: false,
+                    processData:false,
+                    beforeSend: function(data){
+                        btnEnviar.html(textoSubiendo);
+                        btnEnviar.attr("disable",true);
+                    },
+                    success: function(data){//entra aca si el archivo login.php da una respuesta
+                        if(data != "Usuario y/o Contrasaeña invalidos"){ ///Si la respuesta del archivo es "Usuario registrado"
+                            //muestra una alerta tipo Success
+                                Swal.fire({
+                                    'title': 'Hecho!',
+                                    'text': data, //y el motivo que imprime es la respuesta del archivo "Usuario registrado"
+                                    'type': 'success'
+                                    }).then(function(result){
+                                        window.location = "editar-perfil.php"; //Despues redirecciona a index.php
+                                    })
+                        }
+                        else{ /// si la respuesta del archivo es otra entrara aca
+                            ///Muestra una alerta de tipo error 
+                            Swal.fire({ 
+                                    'title': 'Error',
+                                    'text': data, //y aca Imprime  error especifico o la respuesta de nuestro archivo php
+                                    'type': 'error'
+                                    })
+                        }		
+                    },
+                    error: function(e){ ///Entra aca si el archivo no da respueta 
+                        Swal.fire({
+                            'title': 'Errors',
+                            'text': 'Hubo un problema mientras se hacia el registro.',
+                            'type': 'error'
+                        })
+                    }
+                });
+            });		
+        });
+        
+    </script>
+
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
