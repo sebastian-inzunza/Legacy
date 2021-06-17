@@ -18,7 +18,7 @@
     if(!empty($nombre)){ 
         $verifica_nombre = $nombre != $usuario['nombre'] ;
     }
-    if( !empty($contrasena1) && !empty($contrasena2) ){
+    if( !empty($contrasena1) && !empty($contrasena2) && ($contrasena1==$contrasena2) ){
         $verifica_contrasena = $contrasena1 != $usuario['contrasena'];
     }
     
@@ -26,12 +26,7 @@
     if($verifica_nombre && $verifica_contrasena){ // Cambia nombre y contrasena
         $query = "UPDATE usuario SET nombre = '$nombre', contrasena = '$contrasena1' WHERE id = '$id'";
         $actualizar = mysqli_query($conexion, $query); ///mandamos la conexion junto al UPDATE
-        echo '
-                <script>
-                    alert("Se actualizo nombre y contrasena");
-                    window.location ="../index.php";
-                    </script>
-                ';
+        echo"Se actualizo nombre y contrasena";
         session_destroy();
         die();
     }else{
@@ -41,12 +36,7 @@
             if($verifica_nombre){   // se actualiza nombre
                 $query = "UPDATE usuario SET nombre = '$nombre' WHERE id = '$id'";
                 $actualizar = mysqli_query($conexion, $query); ///mandamos la conexion junto al UPDATE
-                echo '
-                <script>
-                    alert("Se actualizo nombre");
-                    window.location ="../index.php";
-                    </script>
-                ';
+                echo"Se actualizo nombre";
                 session_destroy();
                 die();
             }else{ // se actualiza contrasena

@@ -113,7 +113,7 @@
                                 <input class="contactus-perfil" type="text" name="contrasena1" placeholder="Escribe tu nueva contraseña: ">
                                 <input class="contactus-perfil" type="text" name="contrasena2" placeholder="Conftima tu nueva contraseña: ">
                                 <br>
-                                    <button type="submit" class="send" name="actualizar" id="subirDatos"  value="actualizar" >Actualizar</button>
+                                    <button type="submit" class="send" name="subirDatos" id="subirDatos"  value="actualizar" >Actualizar</button>
                                 </br>
                             </form>
                         </div>                
@@ -253,59 +253,70 @@
     });
     </script> 
 
-    <script type="text/javascript">
-        $(document).ready(function (e) {
-            $('#fupFormNombreContra').click(function(e){
+<script type="text/javascript">
+    //esto es codigo Ajax, nos ayudara a mandar los mensajes de error  
 
-                var valid = this.form.checkValidity(); //Valida que los campos de entrada en el form de arriba no esten vacios
-
-                var btnEnviar =  $("#subirDatos");
-                var textoSubir = btnEnviar.text();
-                var textoSubiendo = "Cargando datos";
-                e.preventDefault();	
-                $.ajax({
-                    url: "php/actualizar-nombre_contrasena.php",
-                    type: "POST",
-                    data:  new FormData(this),
-                    contentType: false,
-                    cache: false,
-                    processData:false,
-                    beforeSend: function(data){
-                        btnEnviar.html(textoSubiendo);
-                        btnEnviar.attr("disable",true);
-                    },
-                    success: function(data){//entra aca si el archivo login.php da una respuesta
-                        if(data != "Usuario y/o Contrasaeña invalidos"){ ///Si la respuesta del archivo es "Usuario registrado"
-                            //muestra una alerta tipo Success
-                                Swal.fire({
-                                    'title': 'Hecho!',
-                                    'text': data, //y el motivo que imprime es la respuesta del archivo "Usuario registrado"
-                                    'type': 'success'
-                                    }).then(function(result){
-                                        window.location = "editar-perfil.php"; //Despues redirecciona a index.php
-                                    })
-                        }
-                        else{ /// si la respuesta del archivo es otra entrara aca
-                            ///Muestra una alerta de tipo error 
-                            Swal.fire({ 
-                                    'title': 'Error',
-                                    'text': data, //y aca Imprime  error especifico o la respuesta de nuestro archivo php
-                                    'type': 'error'
-                                    })
-                        }		
-                    },
-                    error: function(e){ ///Entra aca si el archivo no da respueta 
-                        Swal.fire({
-                            'title': 'Errors',
-                            'text': 'Hubo un problema mientras se hacia el registro.',
-                            'type': 'error'
-                        })
-                    }
-                });
-            });		
-        });
+    $(document).ready(function (e) {
         
-    </script>
+        $("#fupFormNombreContra").on('submit',(function(e) { //Este valida Subir imagen 
+        var btnEnviar =  $("#subirDatos");
+        var textoSubir = btnEnviar.text();
+        var textoSubiendo = "Cargando datos";
+        e.preventDefault();
+        $.ajax({
+            url: "php/actualizar-nombre_contrasena.php",
+            type: "POST",
+            data:  new FormData(this),
+            contentType: false,
+            cache: false,
+            processData:false,
+            beforeSend: function(data){
+                btnEnviar.html(textoSubiendo);
+                btnEnviar.attr("disable",true);
+            },
+            success: function(data)
+                {
+                    if(data!='Usuario y/o Contrasaeña invalidos')
+                    {
+                        Swal.fire({
+                            'title': 'Hecho!',
+                            'text': data, //y el motivo que imprime es la respuesta del archivo "Usuario registrado"
+                            'type': 'success'
+                            }).then(function(result){
+                                window.location = "editar-perfil.php"; //Despues redirecciona a index.php
+                            })
+                    }
+                    else
+                    {
+                        if(data == "Se actualizo nombre y contrasena" || data == "Se actualizo nombre"){
+                            Swal.fire({
+                                'title': 'Hecho!',
+                                'text': data, //y el motivo que imprime es la respuesta del archivo "Usuario registrado"
+                                'type': 'success'
+                            }).then(function(result){
+                                window.location = "../index.php"; //Despues redirecciona a index.php
+                            })
+                        }else{
+                            Swal.fire({ 
+                                'title': 'Error',
+                                'text': data, //y aca Imprime  error especifico o la respuesta de nuestro archivo php
+                                'type': 'error'
+                                })
+                        }
+                    }
+                },
+                error: function(e) 
+                {
+                    Swal.fire({ 
+                       'title': 'Error',
+                       'text': "Se supone que esto no debia pasar, ahorita vemos", //y aca Imprime  error especifico o la respuesta de nuestro archivo php
+                       'type': 'error'
+                    })
+                }          
+            });
+        }));
+    });
+    </script> 
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
