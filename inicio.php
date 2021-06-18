@@ -128,6 +128,7 @@
                       while($row = mysqli_fetch_array($result))
                            { 
                              if($row['genero']!= "Pop"){
+                               
                       ?>
                     
                     <li class=><a data-toggle="tab" href="#<?php echo $row['genero']?> "><img class ="dividir" src="icon/icon1.png" alt="icon"/><h3 class="center negritas"><?php echo $row['genero']?> </h3></a></li>
@@ -160,8 +161,10 @@
                                 while($data = mysqli_fetch_array($resultado))
                                 { 
                                 if($data['genero']=="Pop"){
+                                    $name =  mysqli_query($conexion, "SELECT nombre FROM usuario WHERE  id = {$data['idUsuario']}");
+                                    $result = mysqli_fetch_array($name);
                                      ?>
-                                    <td class="center"></td>
+                                    <td class="center"><?php echo $result['nombre']?></td>
                                     <td class="center"><?php echo $data['titulo']?></td>
                                     <td class="display"><audio class="margin-reproductor"src="musica/<?php echo $data["titulo"];?>" preload="none" controls></audio></td>
                                     <td>
@@ -213,8 +216,10 @@
                                     $resultado= mysqli_query($conexion,$consulta);
                                 while($data = mysqli_fetch_array($resultado)){ 
                                     if($data['genero']==$row['genero']){
+                                        $name =  mysqli_query($conexion, "SELECT nombre FROM usuario WHERE  id = {$data['idUsuario']}");
+                                        $nombre = mysqli_fetch_array($name);
                                 ?>
-                                    <td class="center"></td>
+                                    <td class="center"><?php echo $nombre['nombre']?></td>
                                     <td class="center"><?php echo $data['titulo']?></td>
                                     <td class="display"><audio class="margin-reproductor"src="musica/<?php echo $data["titulo"];?>"  preload="none" controls></audio></td>
                                     <td>

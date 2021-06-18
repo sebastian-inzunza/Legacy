@@ -7,7 +7,8 @@
     $id = $_POST['idUsuario'];
 
     $select = mysqli_query($conexion, "SELECT * FROM perfil WHERE id= '$id'");
-    $perfil = mysqli_fetch_array($select); 
+    $perfil = mysqli_fetch_array($select);
+     
     $eliminar = "../avatar/";
     $eliminar .= $eliminar.$perfil['foto'];
         if(!empty( $_FILES["archivo"]["name"])) //si ambos campos vienen con datos
@@ -18,26 +19,38 @@
                 
                 $query = "UPDATE perfil SET foto = '$archivo_BD', detalle = '$descripcion' WHERE id = '$id'";
                 $foto = mysqli_query($conexion, $query); ///mandamos la conexion junto al UPDATE
-                if(file_exists($eliminar)){
-                    unlink($eliminar);
+                if($perfil['foto'] !="")
+                {
+                    if(file_exists($eliminar)){
+                        unlink($eliminar);
+                        echo"Se Actualizo foto y Descripcion";
+                    }
+                    else{
                     echo"Se Actualizo foto y Descripcion";
+                    } 
                 }
                 else{
-                   echo"Se Actualizo foto y Descripcion";
-                }       
+                    echo"Se Actualizo foto y Descripcion";
+                }      
             }
             else{
                 if(move_uploaded_file($_FILES['archivo']['tmp_name'], $archivo))
                 {
                 $query = "UPDATE perfil SET foto = '$archivo_BD' WHERE id = '$id'";
                 $foto = mysqli_query($conexion, $query); ///mandamos la conexion junto al UPDATE
-                if(file_exists($eliminar)){
-                    unlink($eliminar);
-                    echo"Se Actualizo foto ";
-                }
-                else{
-                    echo"Se Actualizo foto ";
-                }
+                    if($perfil['foto'] !="")
+                    {
+                        if(file_exists($eliminar)){
+                            unlink($eliminar);
+                            echo"Se Actualizo foto ";
+                        }
+                        else{
+                            echo"Se Actualizo foto ";
+                        }
+                    }
+                    else{
+                         echo"Se Actualizo foto ";
+                    }
                 }else
                 {
                    echo'Problema con fichero';
