@@ -20,16 +20,19 @@
         .my-custom-scrollbar {
             position: relative;
             height: 300px;
-            overflow: auto;
+            overflow-y: auto;
         }
         .table-wrapper-scroll-y {
             display: block;
         }
-        .list-group2{
-            max-height: 300px;
-            overflow-y:scroll;
-            -webkit-overflow-scrolling: touch;
+        .classgeneral {
+            display:none;
+            overflow-y: auto;
         }
+        .enlace {
+            font-size: 2rem;
+            text-align: center;
+            }
     </style>
     <!-- basic -->
     <meta charset="utf-8">
@@ -70,6 +73,7 @@
     --> 
     <!-- end loader -->
     <!-- header -->
+    
     <header>
         <!-- header inner -->
         <div class="header">
@@ -82,8 +86,7 @@
                                 <div class="logo menu-area-main">
                                     <li><a href="inicio.php"><img src="img/Legacy-Logo.jpg" width="85px" alt="logo"/></a></li>
                                     <spam class = "user">Nickname: <?php echo $usuario['NOMBRE'];?></spam>
-                                </div>
-                                <?php }?>
+                                </div>         
                             </div>
                         </div>
                     </div>
@@ -137,33 +140,61 @@
             href="playlistC.php"><h3 class="center negritas">Crear playlist</h3></a></li>
         </ul>
     </div>
-    <div id="home" class="">
+    <div class="tab-content table-dark table-responsive">
+        <div id="home" class="tab-pane fade in active Scroll">
         <p><h3 class="center">Tus Playlist creadas</h3></p>
-        <div class="row">
-            <div class="col-4">
-                <div class="list-group list-group2" id="list-tab" role="tablist">
-                <?php
-                    include 'php/conexion.php';
-                    $i = 1;
-                    $query=mysqli_query($conexion, "SELECT * FROM playlist WHERE idUsuario='" . $usuario[ "ID" ] . "'");
-                    while($row = mysqli_fetch_array($query)) {
-                        $id = $row['id'];
-                ?>
-                    <a class="list-group-item list-group-item-action text-center" id="" data-toggle="list" href="#<?php echo $id?>" role="tab" aria-controls="home"><?php echo $row['titulo'] ?></a>
-                <?php $i++; };// se cierra el while
-                ?> <!-- se cierra el foreach-->
-                </div>
-            </div>
-            <div class="col-8">
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="1" role="tabpanel" aria-labelledby="list-home-list"><p><h3>ffjdjskiwnfhv dc nks<h3></p></div>
-                    <div class="tab-pane fade" id="9" role="tabpanel" aria-labelledby="list-profile-list"><p><h3>esto es de la playlist id 9<h3></p></div>
-                    <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
-                    <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <table  class="table table-responsive table-striped table-dark">
+            <tbody>
+            <tr>
+                <th width="350" scope="col"></th>
+                <th scope="col" class="center">#</th>
+                <th width="300" scope="col" class="center">Titulo de tu Playlist</th>
+                <th width="80" scope="col" class=""></th>
+                <th width="340" scope="col"></th>
+            </tr>
+            <?php
+            include 'php/conexion.php';
+            $i = 1;
+            $query=mysqli_query($conexion, "SELECT * FROM playlist WHERE idUsuario='" . $usuario[ "ID" ] . "'");
+            while($playlist = mysqli_fetch_array($query)) {
+                $id = $playlist['id'];
+                $cad = 'classid';
+                $cad = $cad.$i;
+            ?>
+            <tr class="playlist">
+                <th width="350" scope="col"></th>
+                <th scope="col" class="center"><?php echo $i?></th>
+                <input type="hidden" name="id" value="<?php echo $id?>">
+                <th scope="col" class="center" width="300" height="30"><a id="playlist_<?php echo $id?>" onclick="show('<?php echo$i?>')" href="javascript:void(0);"><?php echo $playlist['titulo']?></a>
+<!-- tabla de las canciones de cada playlist-->
+                <table width="450" id="<?php echo $i?>" class="classgeneral <?php echo $cad?>">
+                    <tr height="20"></tr>
+                    <?php
+                        $todas = mysqli_query($conexion, "SELECT * FROM playlist_cancion WHERE idPlaylist='" . $playlist[ "id" ] . "'");
+                        while($row = mysqli_fetch_array($todas)) {
+                            $cancion = mysqli_query($conexion, "SELECT * FROM cancion WHERE id='" . $row[ "idCancion" ] . "'");
+                            while($row2 = mysqli_fetch_array($cancion)){
+                     ?>
+                    <tr class="playlist-c">
+                        <th  width="300" >
+                            <p data-id="<?php echo $id;?>" id="song_<?php echo $row2['id']?>"><?php echo $row2['titulo']?></p>
+                        </th>
+                        <th width="60">
+                        <button data-id="<?php echo $row2['id']?>" id="boton" type="submit" class="btn-padding"><img  src="icon/eliminar.png" alt="icon" width="30"></button>
+                        </th>
+                    </tr>
+                    <?php } 
+                    }?>
+                </table>
+                </th>
+                <th width="40" scope="col" class=""><button data-id="<?php echo $id?>" id="boton" type="submit" class="btn-padding"><img  src="icon/boton-x.png" alt="icon" width="50"></button></th>
+                <th width="320" scope="col"></th>
+            </tr>
+            <?php $i++; };// se cierra el while
+            } ?> <!-- se cierra el foreach-->
+            </tbody>
+        </table>
+        
     </div>
 </div>
     <!-- music-box  --> 
@@ -359,6 +390,7 @@
         </div>
     </footr>
     <!-- end footer -->
+
     <!-- Javascript files-->
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.min.js"></script>
@@ -368,12 +400,117 @@
     <!-- sidebar -->
     <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="js/custom.js"></script>
+    <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.1/jquery.fancybox.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    
+<script>
+    function show(id) {
+        if( $('.classid'+id).is(":visible") ){
+           $(".classgeneral").hide();
+        } else {
+           $(".classgeneral").hide();
+           $('.classid'+id).show();
+        } 
+    }
+</script>
+<script type="text/javascript">
+    //esto es codigo Ajax, nos ayudara a mandar los mensajes de error  
+//Eliminar una playlist
+        $('.playlist #boton').click(function(){
+            var id = $(this).data('id');
+            Swal.fire({
+                title: "¿Seguro que quieres eliminar esta playlist?",
+                text: "Esta operación no se puede deshacer",
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: "Eliminar",
+                cancelButtonText: "Cancelar",
+                type: 'warning'
+            })
+            .then(resultado => {
+                if (resultado.value) {
+                    $.ajax({
+                        url: 'php/eliminar-playlist.php',
+                        type: 'POST',
+                        data: {'id': id},
+                        success: function(data){//entra aca si el archivo eliminar-playlist.php da una respuesta
+                            if(data == "1"){ ///Si la respuesta del archivo es "1"
+                                Swal.fire({
+                                    'title': 'Hecho!',
+                                    'text': "Se elimino la playlist", //y el motivo que imprime es la respuesta del archivo "Usuario registrado"
+                                    'type': 'warning'
+                                    }).then(function(result){
+                                        window.location = "playlists.php"; //Despues redirecciona a playlists.php
+                                    })
+                            }
+                            else{ /// si la respuesta del archivo es otra entrara aca
+                                Swal.fire({ 
+                                    'title': 'Error',
+                                    'text': data, //y aca Imprime  error especifico o la respuesta de nuestro archivo php
+                                    'type': 'error'
+                                    }) 
+                            }		
+                        },
+                    });
+                    } 
+                });
+            // AJAX request
+            
+        });
+//Eliminar una cancion de una playlist
+        $('.playlist-c #boton').click(function(){
+            var idC = $(this).data('id');
+            var idP = $('#song_'+idC).data('id');
+            Swal.fire({
+                title: "¿Seguro que quieres eliminar esta canción de tu playlist?",
+                text: "",
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: "Eliminar",
+                cancelButtonText: "Cancelar",
+                type: 'warning'
+            })
+            .then(resultado => {
+                if (resultado.value) {
+                    $.ajax({
+                        url: 'php/eliminar-playlist-c.php',
+                        type: 'POST',
+                        data: {'idP': idP, 'idC': idC},
+                        success: function(data){//entra aca si el archivo eliminar-playlist.php da una respuesta
+                            if(data == "1"){ ///Si la respuesta del archivo es "1"
+                                Swal.fire({
+                                    'title': 'Hecho!',
+                                    'text': "Se elimino la canción", //y el motivo que imprime es la respuesta del archivo "Usuario registrado"
+                                    'type': 'warning'
+                                    }).then(function(result){
+                                        window.location = "playlists.php"; //Despues redirecciona a playlists.php
+                                    })
+                            }
+                            else{ /// si la respuesta del archivo es otra entrara aca
+                                Swal.fire({ 
+                                    'title': 'Error',
+                                    'text': data, //y aca Imprime  error especifico o la respuesta de nuestro archivo php
+                                    'type': 'error'
+                                    }) 
+                            }		
+                        },
+                    });
+                    } 
+                });
+            // AJAX request
+            
+        });
+    
+    </script>  
     <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+
 
 </body>
 
