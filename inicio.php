@@ -174,15 +174,27 @@
                                             <button type="submit" class="btn-padding"><img  src="icon/prohibido.png" alt="icon" width="30px"></button>
                                         </form>
                                     </td>
-                                    <td >
-                                        <select class="selectpicker display">
-                                            <option value="">Agregar Playlist</option>
-                                            <option value="1">PlayList 1</option>
-                                            <option value="2">Playlist 2</option>
-                                            <option value="3">Playlist 3</option>
-                                        </select>
-                                       
-                                    </td>
+                                    <td>
+                                           <form method="POST" action="php/actualizar-playlist.php">
+                                                <input type="hidden" name="idSong" value="<?php echo $data['id'];?>">
+                                                <select class="selectpicker display" name="playlist" required>
+                                                    <option disabled="hidden">Selecciona Playlist</option>
+                                                    <?php
+                                                        $list =  mysqli_query($conexion, "SELECT * FROM playlist  WHERE idUsuario ='{$usuario['ID']}'");
+                                                        while($playlist = mysqli_fetch_array($list))
+                                                        {
+                                                    ?>
+                                                    <option value="<?php echo $playlist['id'];?>"> <?php echo $playlist['titulo'];?></option>
+                                                    <?php 
+                                                        }
+                                                    ?>  
+                                                </select>
+                                              
+                                        </td>
+                                        <td>
+                                                <button type="submit" class="btn-padding">Agregar a Playlist</button>
+                                            </form>
+                                        </td>
                                 </tr>
                                 <?php
                                }
@@ -229,16 +241,29 @@
                                             <button type="submit" class="btn-padding"><img  src="icon/prohibido.png" alt="icon" width="30px"></button>
                                         </form>
                                     </td>
-                                    <td>
-                                        <select class="selectpicker display">
-                                            <option value="">Agregar Playlist</option>
-                                            <option value="1">PlayList 1</option>
-                                            <option value="2">Playlist 2</option>
-                                            <option value="3">Playlist 3</option>
-                                        </select>
-                                       
-                                    </td>
+                                        <td>
+                                           <form method="POST" action="php/actualizar-playlist.php">
+                                                <input type="hidden" name="idSong" value="<?php echo $data['id'];?>">
+                                                <select class="selectpicker display" name="playlist" required>
+                                                    <option disabled="hidden">Selecciona Playlist</option>
+                                                    <?php
+                                                        $list =  mysqli_query($conexion, "SELECT * FROM playlist  WHERE idUsuario ='{$usuario['ID']}'");
+                                                        while($playlist = mysqli_fetch_array($list))
+                                                        {
+                                                    ?>
+                                                    <option value="<?php echo $playlist['id'];?>"> <?php echo $playlist['titulo'];?></option>
+                                                    <?php 
+                                                        }
+                                                    ?>  
+                                                </select>
+                                              
+                                        </td>
+                                        <td>
+                                                <button type="submit" class="btn-padding">Agregar a Playlist</button>
+                                            </form>
+                                        </td>
                                 </tr>
+
                                 <?php
                                }
                              }?>
