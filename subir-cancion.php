@@ -149,7 +149,7 @@
                                     <td><button data-id='<?php echo $row['id'];?>' id="boton" type="submit" class="btn-padding"><img  src="icon/boton-x.png" alt="icon" width="30px"></button></td>
                                     <td>
                                        <form method="POST" id="fupFormPlaylist" action="php/actualizar-playlist.php">
-                                            <input type="hidden" name="idSong" value="<?php echo $data['id'];?>">
+                                            <input type="hidden" name="idSong" value="<?php echo $row['id'];?>">
                                             <select class="selectpicker display" name="playlist" required>
                                                 <option disabled="hidden">Selecciona Playlist</option>
                                                 <?php
