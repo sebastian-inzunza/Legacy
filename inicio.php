@@ -242,7 +242,7 @@
                                         </form>
                                     </td>
                                         <td>
-                                           <form method="POST" id="fupForm" action="php/actualizar-playlist.php">
+                                           <form method="POST" id="fupFormPlaylist" action="php/actualizar-playlist.php">
                                                 <input type="hidden" name="idSong" value="<?php echo $data['id'];?>">
                                                 <select class="selectpicker display" name="playlist" required>
                                                     <option disabled="hidden">Selecciona Playlist</option>
@@ -259,7 +259,7 @@
                                               
                                         </td>
                                         <td>
-                                                <button type="submit" class="btn-padding" name="subir" id="subir">Agregar a Playlist</button>
+                                                <button type="submit" class="btn-padding" name="subirPlaylist" id="subirPlaylist">Agregar a Playlist</button>
                                             </form>
                                         </td>
                                 </tr>
@@ -348,49 +348,46 @@
 
     $(document).ready(function (e) {
         
-        $("#fupForm").on('submit',(function(e) { //Este valida Subir imagen 
-        var btnEnviar =  $("#subir");
-        var textoSubir = btnEnviar.text();
-        var textoSubiendo = "Cargando playlist";
-        e.preventDefault();
-        $.ajax({
-            url: "php/actualizar-playlist.php",
-            type: "POST",
-            data:  new FormData(this),
-            contentType: false,
-            cache: false,
-            processData:false,
-            beforeSend: function(data){
-                btnEnviar.html(textoSubiendo);
-                btnEnviar.attr("disable",true);
-            },
-            success: function(data)
-                {
-                    if(data!='Ya se encuentra en la playlist')
-                    {
-                        Swal.fire({
-                            'title': 'Hecho!',
-                            'text': data, //y el motivo que imprime es la respuesta del archivo "Usuario registrado"
-                            'type': 'success'
+        $("#fupFormPlaylist").on('submit',(function(e) { //Este valida Subir imagen 
+            var btnEnviar =  $("#subirPlaylist");
+            var textoSubir = btnEnviar.text();
+            var textoSubiendo = "Cargando playlist";
+            e.preventDefault();
+            $.ajax({
+                url: "php/actualizar-playlist.php",
+                type: "POST",
+                data:  new FormData(this),
+                contentType: false,
+                cache: false,
+                processData:false,
+                beforeSend: function(data){
+                    btnEnviar.html(textoSubiendo);
+                    btnEnviar.attr("disable",true);
+                },
+                success: function(data){
+                        if(data!="Ya se encuentra en la playlist"){
+                            Swal.fire({
+                                'title': 'Hecho!',
+                                'text': data, //y el motivo que imprime es la respuesta del archivo "Usuario registrado"
+                                'type': 'success'
                             }).then(function(result){
                                 window.location = "inicio.php"; //Despues redirecciona a index.php
                             })
-                    }
-                    else
-                    {
-                        Swal.fire({ 
-                            'title': 'Error',
-                            'text': data, //y aca Imprime  error especifico o la respuesta de nuestro archivo php
-                            'type': 'error'
+                        }
+                        else
+                        {
+                            Swal.fire({ 
+                                'title': 'Error',
+                                'text': data, //y aca Imprime  error especifico o la respuesta de nuestro archivo php
+                                'type': 'error'
                             })
-                    }
+                        }
                 },
-                error: function(e) 
-                {
+                error: function(e){
                     Swal.fire({ 
-                       'title': 'Error',
-                       'text': "Se supone que esto no debia pasar, ahorita vemos", //y aca Imprime  error especifico o la respuesta de nuestro archivo php
-                       'type': 'error'
+                    'title': 'Error',
+                    'text': "Se supone que esto no debia pasar, ahorita vemos", //y aca Imprime  error especifico o la respuesta de nuestro archivo php
+                    'type': 'error'
                     })
                 }                    
             });

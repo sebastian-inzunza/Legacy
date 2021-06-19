@@ -147,13 +147,26 @@
                                     <input type="hidden" name="id" value="<?php echo $row['id'];?>">
                                     <input type="hidden" name="archivo2" id="archivo2" value="<?php echo $row['titulo'];?>">
                                     <td><button data-id='<?php echo $row['id'];?>' id="boton" type="submit" class="btn-padding"><img  src="icon/boton-x.png" alt="icon" width="30px"></button></td>
-                                    <td >
-                                        <select class="selectpicker display">
-                                            <option value="">Agregar Playlist</option>
-                                            <option value="1">PlayList 1</option>
-                                            <option value="2">Playlist 2</option>
-                                            <option value="3">Playlist 3</option>
-                                        </select>
+                                    <td>
+                                       <form method="POST" id="fupFormPlaylist" action="php/actualizar-playlist.php">
+                                            <input type="hidden" name="idSong" value="<?php echo $data['id'];?>">
+                                            <select class="selectpicker display" name="playlist" required>
+                                                <option disabled="hidden">Selecciona Playlist</option>
+                                                <?php
+                                                    $list =  mysqli_query($conexion, "SELECT * FROM playlist  WHERE idUsuario ='{$usuario['ID']}'");
+                                                    while($playlist = mysqli_fetch_array($list))
+                                                    {
+                                                ?>
+                                                <option value="<?php echo $playlist['id'];?>"> <?php echo $playlist['titulo'];?></option>
+                                                <?php 
+                                                    }
+                                                ?>  
+                                            </select>
+                                          
+                                    </td>
+                                    <td>
+                                            <button type="submit" class="btn-padding" name="subirPlaylist" id="subirPlaylist">Agregar a Playlist</button>
+                                        </form>
                                     </td>
                                 </tr>
                                 <?php }// se cierra el while
