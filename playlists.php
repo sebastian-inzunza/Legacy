@@ -143,14 +143,15 @@
     <div class="tab-content table-dark table-responsive">
         <div id="home" class="tab-pane fade in active Scroll">
         <p><h3 class="center">Tus Playlist creadas</h3></p>
-        <table  class="table table-responsive table-striped table-dark">
+        <table  class="table table-responsive table-striped table-dark border">
             <tbody>
             <tr>
                 <th width="350" scope="col"></th>
                 <th scope="col" class="center">#</th>
                 <th width="300" scope="col" class="center">Titulo de tu Playlist</th>
+                <th width="40" scope="col" class=""></th>
                 <th width="80" scope="col" class=""></th>
-                <th width="340" scope="col"></th>
+                <th width="300" scope="col" class=""></th>
             </tr>
             <?php
             include 'php/conexion.php';
@@ -187,8 +188,9 @@
                     }?>
                 </table>
                 </th>
+                <th width="40" scope="col"><a data-toggle="tab" href="#play_<?php echo $id?>"><img  src="icon/play.png" alt="icon" width="25"></a></form></th>
                 <th width="40" scope="col" class=""><button data-id="<?php echo $id?>" id="boton" type="submit" class="btn-padding"><img  src="icon/boton-x.png" alt="icon" width="50"></button></th>
-                <th width="320" scope="col"></th>
+                <th width="300" scope="col"></th>
             </tr>
             <?php $i++; };// se cierra el while
             } ?> <!-- se cierra el foreach-->
@@ -199,11 +201,11 @@
 </div>
     <!-- music-box  --> 
     
-    <div class="music-box">
+<div class="music-box">
         <div class="container">
             <h2 class="center negritas">Reproductor</h2>
                 <div class="tab-content table-dark"> <!-- Esto vamos a sacamr con un while de la base de datos-->
-                        <!-- SECCION POP-->
+                    <!-- SECCION HOME-->
                         <div id="home" class="tab-pane fade in active Scroll">
                             <table class="display margin_top_30 ">
                                 <tr>
@@ -214,41 +216,64 @@
                                     <td width = "200px"></td>
                                 </tr>
                                 <tr>
-                                    <td class="center">Yung Bae</td>
-                                    <td class="center">I´m Willing</td>
-                                    <td class="display"><audio class="margin-reproductor"src="YUNG BAE - Bae - 05 I'm Willing (w-tuuwa).mp3" preload="none" controls></audio></td>
-                                    <td><a data-toggle="tab" href="#"><img class ="dividir" src="icon/prohibido.png" alt="icon" width="30px"/></a></td>
-                                    <td >
-                                        <select class="selectpicker display">
-                                            <option value="">Agregar Playlist</option>
-                                            <option value="1">PlayList 1</option>
-                                            <option value="2">Playlist 2</option>
-                                            <option value="3">Playlist 3</option>
-                                        </select>
-                                       
+
+                                <?php
+                            
+                                $consulta= "SELECT * FROM cancion";
+                                $resultado= mysqli_query($conexion,$consulta);
+                               
+                                while($data = mysqli_fetch_array($resultado))
+                                { 
+                                
+                                    $name =  mysqli_query($conexion, "SELECT nombre FROM usuario WHERE  id = {$data['idUsuario']}");
+                                    $result = mysqli_fetch_array($name);
+                                     ?>
+                                    <td class="center"><?php echo $result['nombre']?></td>
+                                    <td class="center"><?php echo $data['titulo']?></td>
+                                    <td class="display"><audio class="margin-reproductor"src="musica/<?php echo $data["titulo"];?>" preload="none" controls></audio></td>
+                                    <td>
+                                        <form action="Interfaz_Reportar_Contenido.php" method="POST">
+                                            <input type="hidden" name="idCancion" value="<?php echo $data['id'];?>">
+                                            <input type="hidden" name="titulo" value="<?php echo $data['titulo'];?>">
+                                            <button type="submit" class="btn-padding"><img  src="icon/prohibido.png" alt="icon" width="30px"></button>
+                                        </form>
                                     </td>
+                                    <td>
+                                           <form id="fupForm" action="php/actualizar-playlist.php" method="POST" >
+                                                <input type="hidden" name="idSong" value="<?php echo $data['id'];?>">
+                                                <select class="selectpicker display" name="playlist" required>
+                                                    <option disabled="hidden">Selecciona Playlist</option>
+                                                    <?php
+                                                        $list =  mysqli_query($conexion, "SELECT * FROM playlist  WHERE idUsuario ='{$usuario['ID']}'");
+                                                        while($playlist = mysqli_fetch_array($list))
+                                                        {
+                                                    ?>
+                                                    <option value="<?php echo $playlist['id'];?>"> <?php echo $playlist['titulo'];?></option>
+                                                    <?php 
+                                                        }
+                                                    ?>  
+                                                </select>
+                                              
+                                        </td>
+                                        <td>
+                                                <button type="submit" class="btn-padding" name="subir" id="subir">Agregar a Playlist</button>
+                                            </form>
+                                        </td>
                                 </tr>
-                                <tr>
-                                    <td class="center">MGMT</td>
-                                    <td class="center">Kids</td>
-                                    <td class="display"><audio class="margin-reproductor"src="KIDS.mp3" preload="none" controls></audio></td>
-                                    <td><a data-toggle="tab" href="#"><img class ="dividir" src="icon/prohibido.png" alt="icon" width="30px"/></a></td>
-                                    <td >
-                                        <select class="selectpicker display">
-                                            <option value="">Agregar Playlist</option>
-                                            <option value="1">PlayList 1</option>
-                                            <option value="2">Playlist 2</option>
-                                            <option value="3">Playlist 3</option>
-                                        </select>
-                                       
-                                    </td>
-                                </tr>
+                                <?php }
+                                ?>
                             </table>
                         </div>
-                        <!-- FIN SECCION POP-->
+                    <!-- FIN SECCION HOME-->
                         
-                        <!-- SECCION ROCK-->
-                        <div id="menu1" class="tab-pane fade Scroll">
+                        <!-- playlist con musica agregada-->
+                        <?php
+                            $Distinc= "SELECT DISTINCT idPlaylist FROM playlist_cancion";
+                            $result= mysqli_query($conexion,$Distinc);
+                         while($row = mysqli_fetch_array($result))
+                           { 
+                      ?>
+                        <div id="play_<?php echo $row['idPlaylist'];?>" class="tab-pane fade Scroll">
                             <table class="display margin_top_30 ">
                                 <tr>
                                     <td><p>Artista</p></td>
@@ -258,82 +283,59 @@
                                     <td width = "200px"></td>
                                 </tr>
                                 <tr>
-                                    <td class="center">Yung Bae</td>
-                                    <td class="center">I´m Willing</td>
-                                    <td class="display"><audio class="margin-reproductor"src="YUNG BAE - Bae - 05 I'm Willing (w-tuuwa).mp3" preload="none" controls></audio></td>
-                                    <td><a data-toggle="tab" href="#"><img class ="dividir" src="icon/prohibido.png" alt="icon" width="30px"/></a></td>
-                                    <td>
-                                        <select class="selectpicker display">
-                                            <option value="">Agregar Playlist</option>
-                                            <option value="1">PlayList 1</option>
-                                            <option value="2">Playlist 2</option>
-                                            <option value="3">Playlist 3</option>
-                                        </select>
-                                       
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <!-- FIN SECCION ROCK-->
 
-                        <!-- SECCION RAP -->
-                        <div id="menu2" class="tab-pane fade Scroll">
-                            <table class="display margin_top_30 ">
-                                <tr>
-                                    <td><p>Artista</p></td>
-                                    <td><p>Cancion</p></td>
-                                    <td class = "center"><p>Reproducir</p></td>
-                                    <td></td>
-                                    <td width = "200px"></td>
-                                </tr>
-                                <tr>
-                                    <td class="center">Yung Bae</td>
-                                    <td class="center">I´m Willing</td>
-                                    <td class="display"><audio class="margin-reproductor"src="YUNG BAE - Bae - 05 I'm Willing (w-tuuwa).mp3" preload="none" controls></audio></td>
-                                    <td><a data-toggle="tab" href="#"><img class ="dividir" src="icon/prohibido.png" alt="icon" width="30px"/></a></td>
+                                <?php    
+                                    //comparar con row ya que este tiene lis idPlaylists que si tienen canciones 
+                                    $consultaPlaylist = mysqli_query($conexion,"SELECT * FROM playlist_cancion WHERE idPlaylist={$row['idPlaylist']}");
+                                    while($cancionPlay = mysqli_fetch_array($consultaPlaylist)){
+                                        $resultado= mysqli_query($conexion,"SELECT * FROM cancion WHERE id='" . $cancionPlay[ "idCancion" ] . "'");
+                                        while($data = mysqli_fetch_array($resultado)){ 
+                                            $name =  mysqli_query($conexion, "SELECT nombre FROM usuario WHERE  id = {$data['idUsuario']}");
+                                            $nombre = mysqli_fetch_array($name);
+                                ?>
+                                    <td class="center"><?php echo $nombre['nombre']?></td>
+                                    <td class="center"><?php echo $data['titulo']?></td>
+                                    <td class="display"><audio class="margin-reproductor"src="musica/<?php echo $data["titulo"];?>"  preload="none" controls></audio></td>
                                     <td>
-                                        <select class="selectpicker display">
-                                            <option value="">Agregar Playlist</option>
-                                            <option value="1">PlayList 1</option>
-                                            <option value="2">Playlist 2</option>
-                                            <option value="3">Playlist 3</option>
-                                        </select>
-                                       
+                                        <form action="Interfaz_Reportar_Contenido.php" method="POST">
+                                            <input type="hidden" name="idCancion" value="<?php echo $data['id'];?>">
+                                            <input type="hidden" name="titulo" value="<?php echo $data['titulo'];?>">
+                                            <button type="submit" class="btn-padding"><img  src="icon/prohibido.png" alt="icon" width="30px"></button>
+                                        </form>
                                     </td>
+                                        <td>
+                                           <form method="POST" id="fupFormPlaylist" action="php/actualizar-playlist.php">
+                                                <input type="hidden" name="idSong" value="<?php echo $data['id'];?>">
+                                                <select class="selectpicker display" name="playlist" required>
+                                                    <option disabled="hidden">Selecciona Playlist</option>
+                                                    <?php
+                                                        $list =  mysqli_query($conexion, "SELECT * FROM playlist  WHERE idUsuario ='{$usuario['ID']}'");
+                                                        while($playlist = mysqli_fetch_array($list))
+                                                        {
+                                                    ?>
+                                                    <option value="<?php echo $playlist['id'];?>"> <?php echo $playlist['titulo'];?></option>
+                                                    <?php 
+                                                        }
+                                                    ?>  
+                                                </select>
+                                              
+                                        </td>
+                                        <td>
+                                                <button type="submit" class="btn-padding" name="subirPlaylist" id="subirPlaylist">Agregar a Playlist</button>
+                                            </form>
+                                        </td>
                                 </tr>
-                            </table>
-                        </div>
-                        <!-- FIN SECCION RAP -->
 
-                        <!-- SECCION REGGAE -->
-                        <div id="menu3" class="tab-pane fade Scroll">
-                            <table class="display margin_top_30 ">
-                                <tr>
-                                    <td><p>Artista</p></td>
-                                    <td><p>Cancion</p></td>
-                                    <td class = "center"><p>Reproducir</p></td>
-                                    <td></td>
-                                    <td width = "200px"></td>
-                                </tr>
-                                <tr>
-                                    <td class="center">Yung Bae</td>
-                                    <td class="center">I´m Willing</td>
-                                    <td class="display"><audio class="margin-reproductor"src="YUNG BAE - Bae - 05 I'm Willing (w-tuuwa).mp3" preload="none" controls></audio></td>
-                                    <td><a data-toggle="tab" href="#"><img class ="dividir" src="icon/prohibido.png" alt="icon" width="30px"/></a></td>
-                                    <td >
-                                        <select class="selectpicker display">
-                                            <option value="">Agregar Playlist</option>
-                                            <option value="1">PlayList 1</option>
-                                            <option value="2">Playlist 2</option>
-                                            <option value="3">Playlist 3</option>
-                                        </select>
-                                       
-                                    </td>
-                                </tr>
+                                <?php
+                                } //Cierre de los while para comparar si existen canciones en la playlist
+                             }?>
+
                             </table>
                         </div>
-                        <!-- FIN SECCION REGGAE -->
-  
+                        <?php
+                              // fin de if row
+                            } //fin del while  row
+                        ?>
                </div>
         </div>
     </div>
