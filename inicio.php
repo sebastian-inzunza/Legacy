@@ -49,9 +49,9 @@
 <body class="main-layout">
  
     <!-- loader  -->
-    <!-- <div class="loader_bg">
+    <div class="loader_bg">
         <div class="loader"><img src="img/disc.gif" alt="#" /></div>
-    </div> -->
+    </div> 
     <!-- end loader -->
     <!-- header -->
     <header>
@@ -151,8 +151,6 @@
                                     <td></td>
                                     <td width = "200px"></td>
                                 </tr>
-                                <tr>
-
                                 <?php
                             
                                 $consulta= "SELECT * FROM cancion";
@@ -164,6 +162,7 @@
                                     $name =  mysqli_query($conexion, "SELECT nombre FROM usuario WHERE  id = {$data['idUsuario']}");
                                     $result = mysqli_fetch_array($name);
                                      ?>
+                                <tr class="FormPlaylist">
                                     <td class="center"><?php echo $result['nombre']?></td>
                                     <td class="center"><?php echo $data['titulo']?></td>
                                     <td class="display"><audio class="margin-reproductor"src="musica/<?php echo $data["titulo"];?>" preload="none" controls></audio></td>
@@ -175,26 +174,23 @@
                                         </form>
                                     </td>
                                     <td>
-                                           <form id="fupForm" action="php/actualizar-playlist.php" method="POST" >
-                                                <input type="hidden" name="idSong" value="<?php echo $data['id'];?>">
-                                                <select class="selectpicker display" name="playlist" required>
-                                                    <option disabled="hidden">Selecciona Playlist</option>
-                                                    <?php
-                                                        $list =  mysqli_query($conexion, "SELECT * FROM playlist  WHERE idUsuario ='{$usuario['ID']}'");
-                                                        while($playlist = mysqli_fetch_array($list))
-                                                        {
-                                                    ?>
-                                                    <option value="<?php echo $playlist['id'];?>"> <?php echo $playlist['titulo'];?></option>
-                                                    <?php 
-                                                        }
-                                                    ?>  
-                                                </select>
-                                              
-                                        </td>
-                                        <td>
-                                                <button type="submit" class="btn-padding" name="subir" id="subir">Agregar a Playlist</button>
-                                            </form>
-                                        </td>
+                                        <input type="hidden" id="idSong_<?php echo $data['id'];?>" name="idSong" value="<?php echo $data['id'];?>">
+                                        <select class="selectpicker display" id="playlist_<?php echo $data['id'];?>" name="playlist" required>
+                                           <option disabled="hidden">Selecciona Playlist</option>
+                                            <?php
+                                                $list =  mysqli_query($conexion, "SELECT * FROM playlist  WHERE idUsuario ='{$usuario['ID']}'");
+                                                while($playlist = mysqli_fetch_array($list))
+                                                {
+                                            ?>
+                                            <option value="<?php echo $playlist['id'];?>"> <?php echo $playlist['titulo'];?></option>
+                                            <?php 
+                                                }
+                                            ?>  
+                                        </select>                                        
+                                    </td>
+                                    <td>
+                                        <button data-id='<?php echo $data['id'];?>' id="subir" type="submit" class="btn-padding">Agregar a Playlist</button>
+                                    </td>
                                 </tr>
                                 <?php
                                }
@@ -221,7 +217,7 @@
                                     <td></td>
                                     <td width = "200px"></td>
                                 </tr>
-                                <tr>
+                                
 
                                 <?php    
                                     $consulta= "SELECT * FROM cancion";
@@ -231,6 +227,7 @@
                                         $name =  mysqli_query($conexion, "SELECT nombre FROM usuario WHERE  id = {$data['idUsuario']}");
                                         $nombre = mysqli_fetch_array($name);
                                 ?>
+                                <tr class="FormPlaylist">
                                     <td class="center"><?php echo $nombre['nombre']?></td>
                                     <td class="center"><?php echo $data['titulo']?></td>
                                     <td class="display"><audio class="margin-reproductor"src="musica/<?php echo $data["titulo"];?>"  preload="none" controls></audio></td>
@@ -242,25 +239,22 @@
                                         </form>
                                     </td>
                                         <td>
-                                           <form method="POST" id="fupFormPlaylist" action="php/actualizar-playlist.php">
-                                                <input type="hidden" name="idSong" value="<?php echo $data['id'];?>">
-                                                <select class="selectpicker display" name="playlist" required>
-                                                    <option disabled="hidden">Selecciona Playlist</option>
-                                                    <?php
-                                                        $list =  mysqli_query($conexion, "SELECT * FROM playlist  WHERE idUsuario ='{$usuario['ID']}'");
-                                                        while($playlist = mysqli_fetch_array($list))
-                                                        {
-                                                    ?>
-                                                    <option value="<?php echo $playlist['id'];?>"> <?php echo $playlist['titulo'];?></option>
-                                                    <?php 
-                                                        }
-                                                    ?>  
-                                                </select>
-                                              
+                                        <input type="hidden" id="idSong_<?php echo $data['id'];?>" name="idSong" value="<?php echo $data['id'];?>">
+                                        <select class="selectpicker display" id="playlist_<?php echo $data['id'];?>" name="playlist" required>
+                                                <option disabled="hidden">Selecciona Playlist</option>
+                                                <?php
+                                                    $list =  mysqli_query($conexion, "SELECT * FROM playlist  WHERE idUsuario ='{$usuario['ID']}'");
+                                                    while($playlist = mysqli_fetch_array($list))
+                                                    {
+                                                ?>
+                                                <option value="<?php echo $playlist['id'];?>"> <?php echo $playlist['titulo'];?></option>
+                                                <?php 
+                                                    }
+                                                ?>  
+                                            </select>              
                                         </td>
                                         <td>
-                                                <button type="submit" class="btn-padding" name="subirPlaylist" id="subirPlaylist">Agregar a Playlist</button>
-                                            </form>
+                                            <button data-id='<?php echo $data['id'];?>' id="subir" type="submit" class="btn-padding">Agregar a Playlist</button>  
                                         </td>
                                 </tr>
 
@@ -342,59 +336,39 @@
     <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script type="text/javascript">
-    //esto es codigo Ajax, nos ayudara a mandar los mensajes de error  
-
-    $(document).ready(function (e) {
-        
-        $("#fupFormPlaylist").on('submit',(function(e) { //Este valida Subir imagen 
-            var btnEnviar =  $("#subirPlaylist");
-            var textoSubir = btnEnviar.text();
-            var textoSubiendo = "Cargando playlist";
-            e.preventDefault();
+    $(document).ready(function (){
+        $('.FormPlaylist #subir').click(function(){
+            var id = $(this).data('id');
+            // Selecting image source
+            var idSong = $('#idSong_'+id).attr("value");
+            var playlist = $('#playlist_'+id).val();
             $.ajax({
-                url: "php/actualizar-playlist.php",
-                type: "POST",
-                data:  new FormData(this),
-                contentType: false,
-                cache: false,
-                processData:false,
-                beforeSend: function(data){
-                    btnEnviar.html(textoSubiendo);
-                    btnEnviar.attr("disable",true);
-                },
-                success: function(data){
-                        if(data!="Ya se encuentra en la playlist"){
-                            Swal.fire({
-                                'title': 'Hecho!',
-                                'text': data, //y el motivo que imprime es la respuesta del archivo "Usuario registrado"
-                                'type': 'success'
-                            }).then(function(result){
-                                window.location = "inicio.php"; //Despues redirecciona a index.php
-                            })
-                        }
-                        else
-                        {
-                            Swal.fire({ 
-                                'title': 'Error',
-                                'text': data, //y aca Imprime  error especifico o la respuesta de nuestro archivo php
-                                'type': 'error'
-                            })
-                        }
-                },
-                error: function(e){
+            url: 'php/actualizar-playlist.php',
+            type: 'POST',
+            data: {'idSong': idSong,'playlist':playlist},
+            success: function(data){//entra aca si el archivo login.php da una respuesta
+                if(data == 1){
+                    Swal.fire({
+                        'title': 'Hecho!',
+                        'text': "Se agrego a la playlist", //y el motivo que imprime es la respuesta del archivo "Usuario registrado"
+                        'type': 'success'
+                        })
+                }
+                else{
                     Swal.fire({ 
-                    'title': 'Error',
-                    'text': "Se supone que esto no debia pasar, ahorita vemos", //y aca Imprime  error especifico o la respuesta de nuestro archivo php
-                    'type': 'error'
-                    })
-                }                    
-            });
-        }));
+                        'title': 'Error',
+                        'text': data, //y aca Imprime  error especifico o la respuesta de nuestro archivo php
+                        'type': 'error'
+                    }) 
+                }
+                   
+            }
+        });          
     });
-    </script> 
-    
+    });
+    </script>     
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>

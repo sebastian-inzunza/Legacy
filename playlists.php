@@ -65,12 +65,11 @@
 <!-- body -->
 
 <body class="main-layout">
- 
-    <!-- loader 
+  
     <div class="loader_bg">
         <div class="loader"><img src="img/disc.gif" alt="#" /></div>
     </div>
-    --> 
+ 
     <!-- end loader -->
     <!-- header -->
     

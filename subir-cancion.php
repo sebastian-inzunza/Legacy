@@ -148,25 +148,22 @@
                                     <input type="hidden" name="archivo2" id="archivo2" value="<?php echo $row['titulo'];?>">
                                     <td><button data-id='<?php echo $row['id'];?>' id="boton" type="submit" class="btn-padding"><img  src="icon/boton-x.png" alt="icon" width="30px"></button></td>
                                     <td>
-                                       <form method="POST" id="fupFormPlaylist" action="php/actualizar-playlist.php">
-                                            <input type="hidden" name="idSong" value="<?php echo $row['id'];?>">
-                                            <select class="selectpicker display" name="playlist" required>
-                                                <option disabled="hidden">Selecciona Playlist</option>
-                                                <?php
-                                                    $list =  mysqli_query($conexion, "SELECT * FROM playlist  WHERE idUsuario ='{$usuario['ID']}'");
-                                                    while($playlist = mysqli_fetch_array($list))
-                                                    {
-                                                ?>
-                                                <option value="<?php echo $playlist['id'];?>"> <?php echo $playlist['titulo'];?></option>
-                                                <?php 
-                                                    }
-                                                ?>  
-                                            </select>
-                                          
+                                    <input type="hidden" id="idSong_<?php echo $row['id'];?>" name="idSong" value="<?php echo $row['id'];?>">
+                                        <select class="selectpicker display" id="playlist_<?php echo $row['id'];?>" name="playlist" required>
+                                            <option disabled="hidden">Selecciona Playlist</option>
+                                            <?php
+                                                $list =  mysqli_query($conexion, "SELECT * FROM playlist  WHERE idUsuario ='{$usuario['ID']}'");
+                                                while($playlist = mysqli_fetch_array($list))
+                                                {
+                                            ?>
+                                            <option value="<?php echo $playlist['id'];?>"> <?php echo $playlist['titulo'];?></option>
+                                            <?php 
+                                                }
+                                            ?>  
+                                        </select>
                                     </td>
                                     <td>
-                                            <button type="submit" class="btn-padding" name="subirPlaylist" id="subirPlaylist">Agregar a Playlist</button>
-                                        </form>
+                                        <button data-id='<?php echo $row['id'];?>' id="subir" type="submit" class="btn-padding">Agregar a Playlist</button>  
                                     </td>
                                 </tr>
                                 <?php }// se cierra el while
@@ -386,6 +383,34 @@
             // AJAX request
            
         });
+        $('.song #subir').click(function(){
+            var id = $(this).data('id');
+            // Selecting image source
+            var idSong = $('#idSong_'+id).attr("value");
+            var playlist = $('#playlist_'+id).val();
+            $.ajax({
+            url: 'php/actualizar-playlist.php',
+            type: 'POST',
+            data: {'idSong': idSong,'playlist':playlist},
+            success: function(data){//entra aca si el archivo login.php da una respuesta
+                if(data == 1){
+                    Swal.fire({
+                        'title': 'Hecho!',
+                        'text': "Se agrego a la playlist", //y el motivo que imprime es la respuesta del archivo "Usuario registrado"
+                        'type': 'success'
+                        })
+                }
+                else{
+                    Swal.fire({ 
+                        'title': 'Error',
+                        'text': data, //y aca Imprime  error especifico o la respuesta de nuestro archivo php
+                        'type': 'error'
+                    }) 
+                }
+                   
+            }
+        });          
+    });
     });
     </script>      
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
